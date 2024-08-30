@@ -8,7 +8,7 @@
 
 	header('Content-type: text/javascript; charset=' . datalist_db_encoding);
 
-	$table_perms = getTablePermissions('roll_call');
+	$table_perms = getTablePermissions('attendance');
 	if(!$table_perms['access']) die('// Access denied!');
 
 	$mfk = Request::val('mfk');
@@ -28,7 +28,7 @@
 				<?php
 				break;
 			}
-			$res = sql("SELECT `employees`.`EmpID` as 'EmpID', `employees`.`name` as 'name', `employees`.`department` as 'department', `employees`.`position` as 'position', `employees`.`fingerprint1` as 'fingerprint1', `employees`.`fingerprint_2` as 'fingerprint_2', `employees`.`fingerprint_3` as 'fingerprint_3', if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'') as 'date_enrolled' FROM `employees`  WHERE `employees`.`EmpID`='{$id}' limit 1", $eo);
+			$res = sql("SELECT `employees`.`EmpID` as 'EmpID', `employees`.`name` as 'name', `employees`.`department` as 'department', `employees`.`position` as 'position', `employees`.`fingerprint1` as 'fingerprint1', `employees`.`fingerprint_2` as 'fingerprint_2', `employees`.`fingerprint_3` as 'fingerprint_3', if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'') as 'date_enrolled', `employees`.`active` as 'active' FROM `employees`  WHERE `employees`.`EmpID`='{$id}' limit 1", $eo);
 			$row = db_fetch_assoc($res);
 			?>
 			$j('#name<?php echo $rnd1; ?>').html('<?php echo addslashes(str_replace(["\r", "\n"], '', safe_html($row['name']))); ?>&nbsp;');

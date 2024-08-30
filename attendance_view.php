@@ -3,91 +3,91 @@
 // Download AppGini for free from https://bigprof.com/appgini/download/
 
 	include_once(__DIR__ . '/lib.php');
-	@include_once(__DIR__ . '/hooks/roll_call.php');
-	include_once(__DIR__ . '/roll_call_dml.php');
+	@include_once(__DIR__ . '/hooks/attendance.php');
+	include_once(__DIR__ . '/attendance_dml.php');
 
 	// mm: can the current member access this page?
-	$perm = getTablePermissions('roll_call');
+	$perm = getTablePermissions('attendance');
 	if(!$perm['access']) {
 		echo error_message($Translation['tableAccessDenied']);
 		exit;
 	}
 
 	$x = new DataList;
-	$x->TableName = 'roll_call';
+	$x->TableName = 'attendance';
 
 	// Fields that can be displayed in the table view
 	$x->QueryFieldsTV = [
-		"`roll_call`.`attID`" => "attID",
+		"`attendance`.`attID`" => "attID",
 		"IF(    CHAR_LENGTH(`employees1`.`EmpID`), CONCAT_WS('',   `employees1`.`EmpID`), '') /* EmpID */" => "empID",
 		"IF(    CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`name`), '') /* Name */" => "name",
-		"if(`roll_call`.`date`,date_format(`roll_call`.`date`,'%m/%d/%Y'),'')" => "date",
-		"TIME_FORMAT(`roll_call`.`time_in`, '%r')" => "time_in",
-		"TIME_FORMAT(`roll_call`.`time_out`, '%r')" => "time_out",
-		"`roll_call`.`day_of_week`" => "day_of_week",
-		"`roll_call`.`hours_worked`" => "hours_worked",
-		"`roll_call`.`is_late`" => "is_late",
-		"`roll_call`.`early_out`" => "early_out",
+		"if(`attendance`.`date`,date_format(`attendance`.`date`,'%m/%d/%Y'),'')" => "date",
+		"TIME_FORMAT(`attendance`.`time_in`, '%r')" => "time_in",
+		"TIME_FORMAT(`attendance`.`time_out`, '%r')" => "time_out",
+		"`attendance`.`day_of_week`" => "day_of_week",
+		"`attendance`.`hours_worked`" => "hours_worked",
+		"`attendance`.`is_late`" => "is_late",
+		"`attendance`.`early_out`" => "early_out",
 	];
 	// mapping incoming sort by requests to actual query fields
 	$x->SortFields = [
-		1 => '`roll_call`.`attID`',
+		1 => '`attendance`.`attID`',
 		2 => '`employees1`.`EmpID`',
 		3 => '`employees1`.`name`',
-		4 => '`roll_call`.`date`',
-		5 => '`roll_call`.`time_in`',
-		6 => '`roll_call`.`time_out`',
+		4 => '`attendance`.`date`',
+		5 => '`attendance`.`time_in`',
+		6 => '`attendance`.`time_out`',
 		7 => 7,
-		8 => '`roll_call`.`hours_worked`',
+		8 => '`attendance`.`hours_worked`',
 		9 => 9,
 		10 => 10,
 	];
 
 	// Fields that can be displayed in the csv file
 	$x->QueryFieldsCSV = [
-		"`roll_call`.`attID`" => "attID",
+		"`attendance`.`attID`" => "attID",
 		"IF(    CHAR_LENGTH(`employees1`.`EmpID`), CONCAT_WS('',   `employees1`.`EmpID`), '') /* EmpID */" => "empID",
 		"IF(    CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`name`), '') /* Name */" => "name",
-		"if(`roll_call`.`date`,date_format(`roll_call`.`date`,'%m/%d/%Y'),'')" => "date",
-		"TIME_FORMAT(`roll_call`.`time_in`, '%r')" => "time_in",
-		"TIME_FORMAT(`roll_call`.`time_out`, '%r')" => "time_out",
-		"`roll_call`.`day_of_week`" => "day_of_week",
-		"`roll_call`.`hours_worked`" => "hours_worked",
-		"`roll_call`.`is_late`" => "is_late",
-		"`roll_call`.`early_out`" => "early_out",
+		"if(`attendance`.`date`,date_format(`attendance`.`date`,'%m/%d/%Y'),'')" => "date",
+		"TIME_FORMAT(`attendance`.`time_in`, '%r')" => "time_in",
+		"TIME_FORMAT(`attendance`.`time_out`, '%r')" => "time_out",
+		"`attendance`.`day_of_week`" => "day_of_week",
+		"`attendance`.`hours_worked`" => "hours_worked",
+		"`attendance`.`is_late`" => "is_late",
+		"`attendance`.`early_out`" => "early_out",
 	];
 	// Fields that can be filtered
 	$x->QueryFieldsFilters = [
-		"`roll_call`.`attID`" => "AttID",
+		"`attendance`.`attID`" => "AttID",
 		"IF(    CHAR_LENGTH(`employees1`.`EmpID`), CONCAT_WS('',   `employees1`.`EmpID`), '') /* EmpID */" => "EmpID",
 		"IF(    CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`name`), '') /* Name */" => "Name",
-		"`roll_call`.`date`" => "Date",
-		"`roll_call`.`time_in`" => "Time in",
-		"`roll_call`.`time_out`" => "Time out",
-		"`roll_call`.`day_of_week`" => "Day of week",
-		"`roll_call`.`hours_worked`" => "Hours worked",
-		"`roll_call`.`is_late`" => "Is late",
-		"`roll_call`.`early_out`" => "Early out",
+		"`attendance`.`date`" => "Date",
+		"`attendance`.`time_in`" => "Time in",
+		"`attendance`.`time_out`" => "Time out",
+		"`attendance`.`day_of_week`" => "Day of week",
+		"`attendance`.`hours_worked`" => "Hours worked",
+		"`attendance`.`is_late`" => "Is late",
+		"`attendance`.`early_out`" => "Early out",
 	];
 
 	// Fields that can be quick searched
 	$x->QueryFieldsQS = [
-		"`roll_call`.`attID`" => "attID",
+		"`attendance`.`attID`" => "attID",
 		"IF(    CHAR_LENGTH(`employees1`.`EmpID`), CONCAT_WS('',   `employees1`.`EmpID`), '') /* EmpID */" => "empID",
 		"IF(    CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`name`), '') /* Name */" => "name",
-		"if(`roll_call`.`date`,date_format(`roll_call`.`date`,'%m/%d/%Y'),'')" => "date",
-		"TIME_FORMAT(`roll_call`.`time_in`, '%r')" => "time_in",
-		"TIME_FORMAT(`roll_call`.`time_out`, '%r')" => "time_out",
-		"`roll_call`.`day_of_week`" => "day_of_week",
-		"`roll_call`.`hours_worked`" => "hours_worked",
-		"`roll_call`.`is_late`" => "is_late",
-		"`roll_call`.`early_out`" => "early_out",
+		"if(`attendance`.`date`,date_format(`attendance`.`date`,'%m/%d/%Y'),'')" => "date",
+		"TIME_FORMAT(`attendance`.`time_in`, '%r')" => "time_in",
+		"TIME_FORMAT(`attendance`.`time_out`, '%r')" => "time_out",
+		"`attendance`.`day_of_week`" => "day_of_week",
+		"`attendance`.`hours_worked`" => "hours_worked",
+		"`attendance`.`is_late`" => "is_late",
+		"`attendance`.`early_out`" => "early_out",
 	];
 
 	// Lookup fields that can be used as filterers
 	$x->filterers = ['empID' => 'EmpID', ];
 
-	$x->QueryFrom = "`roll_call` LEFT JOIN `employees` as employees1 ON `employees1`.`EmpID`=`roll_call`.`empID` ";
+	$x->QueryFrom = "`attendance` LEFT JOIN `employees` as employees1 ON `employees1`.`EmpID`=`attendance`.`empID` ";
 	$x->QueryWhere = '';
 	$x->QueryOrder = '';
 
@@ -109,10 +109,10 @@
 	$x->RecordsPerPage = 10;
 	$x->QuickSearch = 1;
 	$x->QuickSearchText = $Translation['quick search'];
-	$x->ScriptFileName = 'roll_call_view.php';
+	$x->ScriptFileName = 'attendance_view.php';
 	$x->TableTitle = 'Attendance';
 	$x->TableIcon = 'table.gif';
-	$x->PrimaryKey = '`roll_call`.`attID`';
+	$x->PrimaryKey = '`attendance`.`attID`';
 
 	$x->ColWidth = [150, 150, 150, 150, 150, 150, 150, 150, 150, ];
 	$x->ColCaption = ['EmpID', 'Name', 'Date', 'Time in', 'Time out', 'Day of week', 'Hours worked', 'Is late', 'Early out', ];
@@ -120,10 +120,10 @@
 	$x->ColNumber  = [2, 3, 4, 5, 6, 7, 8, 9, 10, ];
 
 	// template paths below are based on the app main directory
-	$x->Template = 'templates/roll_call_templateTV.html';
-	$x->SelectedTemplate = 'templates/roll_call_templateTVS.html';
-	$x->TemplateDV = 'templates/roll_call_templateDV.html';
-	$x->TemplateDVP = 'templates/roll_call_templateDVP.html';
+	$x->Template = 'templates/attendance_templateTV.html';
+	$x->SelectedTemplate = 'templates/attendance_templateTVS.html';
+	$x->TemplateDV = 'templates/attendance_templateDV.html';
+	$x->TemplateDVP = 'templates/attendance_templateDVP.html';
 
 	$x->ShowTableHeader = 1;
 	$x->TVClasses = "";
@@ -132,20 +132,20 @@
 	$x->AllowConsoleLog = false;
 	$x->AllowDVNavigation = true;
 
-	// hook: roll_call_init
+	// hook: attendance_init
 	$render = true;
-	if(function_exists('roll_call_init')) {
+	if(function_exists('attendance_init')) {
 		$args = [];
-		$render = roll_call_init($x, getMemberInfo(), $args);
+		$render = attendance_init($x, getMemberInfo(), $args);
 	}
 
 	if($render) $x->Render();
 
-	// hook: roll_call_header
+	// hook: attendance_header
 	$headerCode = '';
-	if(function_exists('roll_call_header')) {
+	if(function_exists('attendance_header')) {
 		$args = [];
-		$headerCode = roll_call_header($x->ContentType, getMemberInfo(), $args);
+		$headerCode = attendance_header($x->ContentType, getMemberInfo(), $args);
 	}
 
 	if(!$headerCode) {
@@ -158,11 +158,11 @@
 
 	echo $x->HTML;
 
-	// hook: roll_call_footer
+	// hook: attendance_footer
 	$footerCode = '';
-	if(function_exists('roll_call_footer')) {
+	if(function_exists('attendance_footer')) {
 		$args = [];
-		$footerCode = roll_call_footer($x->ContentType, getMemberInfo(), $args);
+		$footerCode = attendance_footer($x->ContentType, getMemberInfo(), $args);
 	}
 
 	if(!$footerCode) {

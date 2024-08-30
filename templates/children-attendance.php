@@ -1,6 +1,6 @@
 <?php
 	if(!isset($Translation)) die('No direct access allowed.');
-	$current_table = 'roll_call';
+	$current_table = 'attendance';
 	$cleaner = new CI_Input(datalist_db_encoding);
 	$firstRecord = null;
 ?>

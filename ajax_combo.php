@@ -34,7 +34,7 @@
 	$lookups = [
 		'employees' => [
 		],
-		'roll_call' => [
+		'attendance' => [
 			'empID' => [
 				'parent_table' => 'employees',
 				'parent_pk_field' => 'EmpID',

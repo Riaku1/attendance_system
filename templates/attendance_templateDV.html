@@ -1,11 +1,11 @@
-<!-- To change the layout of the detail view form, we recommend using JS code in hooks/roll_call-dv.js rather than editing this file -->
+<!-- To change the layout of the detail view form, we recommend using JS code in hooks/attendance-dv.js rather than editing this file -->
 
 <div id="detail-view"></div>
 <div class="panel-heading"><h3 class="panel-title"><strong><%%DETAIL_VIEW_TITLE%%></strong></h3></div>
 
-<div id="roll_call_dv_container-loading" class="text-center text-info text-bold vspacer-lg"><i class="glyphicon glyphicon-refresh loop-rotate"></i> <%%TRANSLATION(Loading ...)%%></div>
+<div id="attendance_dv_container-loading" class="text-center text-info text-bold vspacer-lg"><i class="glyphicon glyphicon-refresh loop-rotate"></i> <%%TRANSLATION(Loading ...)%%></div>
 
-<div class="panel-body hidden" id="roll_call_dv_container">
+<div class="panel-body hidden" id="attendance_dv_container">
 	<!-- child links -->
 	<div class="row vspacer-md">
 		<div class="col-xs-12 children-links">
@@ -16,11 +16,11 @@
 
 	<div class="row">
 		<!-- form inputs -->
-		<div class="col-md-8 col-lg-10" id="roll_call_dv_form">
+		<div class="col-md-8 col-lg-10" id="attendance_dv_form">
 			<fieldset class="form-horizontal">
 
 				<!-- Field: AttID -->
-				<div class="form-group roll_call-attID">
+				<div class="form-group attendance-attID">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="attID">AttID</label>
 					<div class="col-lg-9">
@@ -29,7 +29,7 @@
 				</div>
 
 				<!-- Field: EmpID -->
-				<div class="form-group roll_call-empID">
+				<div class="form-group attendance-empID">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="empID" data-parent_link="view_parent_modal">EmpID</label>
 					<div class="col-lg-9">
@@ -38,7 +38,7 @@
 				</div>
 
 				<!-- Field: Name -->
-				<div class="form-group roll_call-name">
+				<div class="form-group attendance-name">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3">Name</label>
 					<div class="col-lg-9">
@@ -47,7 +47,7 @@
 				</div>
 
 				<!-- Field: Date -->
-				<div class="form-group roll_call-date">
+				<div class="form-group attendance-date">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="date-mm">Date</label>
 					<div class="col-lg-9">
@@ -56,7 +56,7 @@
 				</div>
 
 				<!-- Field: Time in -->
-				<div class="form-group roll_call-time_in">
+				<div class="form-group attendance-time_in">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="time_in">Time in</label>
 					<div class="col-lg-9">
@@ -65,7 +65,7 @@
 				</div>
 
 				<!-- Field: Time out -->
-				<div class="form-group roll_call-time_out">
+				<div class="form-group attendance-time_out">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="time_out">Time out</label>
 					<div class="col-lg-9">
@@ -74,7 +74,7 @@
 				</div>
 
 				<!-- Field: Day of week -->
-				<div class="form-group roll_call-day_of_week">
+				<div class="form-group attendance-day_of_week">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="day_of_week">Day of week</label>
 					<div class="col-lg-9">
@@ -83,7 +83,7 @@
 				</div>
 
 				<!-- Field: Hours worked -->
-				<div class="form-group roll_call-hours_worked">
+				<div class="form-group attendance-hours_worked">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="hours_worked">Hours worked</label>
 					<div class="col-lg-9">
@@ -92,7 +92,7 @@
 				</div>
 
 				<!-- Field: Is late -->
-				<div class="form-group roll_call-is_late">
+				<div class="form-group attendance-is_late">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="is_late">Is late</label>
 					<div class="col-lg-9">
@@ -101,7 +101,7 @@
 				</div>
 
 				<!-- Field: Early out -->
-				<div class="form-group roll_call-early_out">
+				<div class="form-group attendance-early_out">
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="early_out">Early out</label>
 					<div class="col-lg-9">
@@ -114,7 +114,7 @@
 
 		<!-- DV action buttons -->
 		<hr class="hidden-md hidden-lg">
-		<div class="col-md-4 col-lg-2" id="roll_call_dv_action_buttons">
+		<div class="col-md-4 col-lg-2" id="attendance_dv_action_buttons">
 			<div class="btn-toolbar">
 				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
 					<%%UPDATE_BUTTON%%>
@@ -153,23 +153,23 @@
 			if(!$j('.table_view').length || $j('[name=SelectedID]').val().length) {
 				AppGini.once({
 					condition: function() {
-						return $j('.form-group.roll_call-empID')
+						return $j('.form-group.attendance-empID')
 									.find('.nicEdit-main, .select2-container, input[type=radio]')
 									.length > 0
 								// or read-only DV
 								|| (!$j('#update').length && !$j('#insert').length);
 					},
 					action: function() {
-						$j('#roll_call_dv_container-loading').addClass('hidden');
-						$j('#roll_call_dv_container').removeClass('hidden');
-						AppGini.focusFormElement('roll_call', 'empID');
+						$j('#attendance_dv_container-loading').addClass('hidden');
+						$j('#attendance_dv_container').removeClass('hidden');
+						AppGini.focusFormElement('attendance', 'empID');
 					},
 					timeout:  5000,
 					doActionOnTimeout:  true
 				});
 			} else {
-				$j('#roll_call_dv_container-loading').addClass('hidden');
-				$j('#roll_call_dv_container').removeClass('hidden');
+				$j('#attendance_dv_container-loading').addClass('hidden');
+				$j('#attendance_dv_container').removeClass('hidden');
 			}
 
 			$j('form').eq(0).change(function() {
@@ -197,7 +197,7 @@
 							localStorage.removeItem(pt + '_last_added_id');
 							AppGini.lookupText({
 								id: new_id,
-								table: 'roll_call',
+								table: 'attendance',
 								field: field_id,
 								callback: function(data) {
 									$j('#' + field_id + '-container').select2('data', data, true);
@@ -262,10 +262,10 @@
 			if(!add_new_mode) {
 				$j('body').append('<div id="admin-tools-appendix"></div>');
 				$j('#admin-tools-appendix').load(
-					'ajax_admin_tools.php?table=roll_call&id=<%%URLVALUE(attID)%%>',
+					'ajax_admin_tools.php?table=attendance&id=<%%URLVALUE(attID)%%>',
 					function(resp) {
 						if(!resp.length) return;
-						$j.ajax('ajax_admin_tools.php?action=get_admin_tools_js&table=roll_call&id=<%%URLVALUE(attID)%%>');
+						$j.ajax('ajax_admin_tools.php?action=get_admin_tools_js&table=attendance&id=<%%URLVALUE(attID)%%>');
 					}
 				);
 			}

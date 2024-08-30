@@ -9,9 +9,9 @@
 	<!-- child links -->
 	<div class="row vspacer-md">
 		<div class="col-xs-12 children-links">
-			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="roll_call_link"><img src="table.gif"> Attendance</a>
-			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_roll_call_link"><img src="table.gif"> Attendance</a>
-			<input type="hidden" id="roll_call_hclink" value="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
+			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="attendance_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="attendance_link"><img src="table.gif"> Attendance</a>
+			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="attendance_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_attendance_link"><img src="table.gif"> Attendance</a>
+			<input type="hidden" id="attendance_hclink" value="attendance_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
 			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="insights_link"><img src="table.gif"> Insights</a>
 			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_insights_link"><img src="table.gif"> Insights</a>
 			<input type="hidden" id="insights_hclink" value="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
@@ -94,6 +94,15 @@
 					<label class="control-label col-lg-3" for="date_enrolled-mm">Date enrolled</label>
 					<div class="col-lg-9">
 						<%%COMBO(date_enrolled)%%>
+					</div>
+				</div>
+
+				<!-- Field: Active -->
+				<div class="form-group employees-active">
+					<hr class="hidden-md hidden-lg">
+					<label class="control-label col-lg-3">Active</label>
+					<div class="col-lg-9">
+						<%%COMBO(active)%%>
 					</div>
 				</div>
 

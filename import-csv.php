@@ -9,10 +9,10 @@
 
 			return $data;
 		},
-		'roll_call' => function($data, $options = []) {
-			if(isset($data['empID'])) $data['empID'] = pkGivenLookupText($data['empID'], 'roll_call', 'empID');
+		'attendance' => function($data, $options = []) {
+			if(isset($data['empID'])) $data['empID'] = pkGivenLookupText($data['empID'], 'attendance', 'empID');
 			if(isset($data['date'])) $data['date'] = guessMySQLDateTime($data['date']);
-			if(isset($data['name'])) $data['name'] = thisOr($data['empID'], pkGivenLookupText($data['name'], 'roll_call', 'name'));
+			if(isset($data['name'])) $data['name'] = thisOr($data['empID'], pkGivenLookupText($data['name'], 'attendance', 'name'));
 
 			return $data;
 		},
@@ -26,7 +26,7 @@
 	// accept a record as an assoc array, return a boolean indicating whether to import or skip record
 	$filterFunctions = [
 		'employees' => function($data, $options = []) { return true; },
-		'roll_call' => function($data, $options = []) { return true; },
+		'attendance' => function($data, $options = []) { return true; },
 		'insights' => function($data, $options = []) { return true; },
 	];
 

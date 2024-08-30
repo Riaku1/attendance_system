@@ -106,8 +106,8 @@
 
 	function get_sql_fields($table_name) {
 		$sql_fields = [
-			'employees' => "`employees`.`EmpID` as 'EmpID', `employees`.`name` as 'name', `employees`.`department` as 'department', `employees`.`position` as 'position', `employees`.`fingerprint1` as 'fingerprint1', `employees`.`fingerprint_2` as 'fingerprint_2', `employees`.`fingerprint_3` as 'fingerprint_3', if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'') as 'date_enrolled'",
-			'roll_call' => "`roll_call`.`attID` as 'attID', IF(    CHAR_LENGTH(`employees1`.`EmpID`), CONCAT_WS('',   `employees1`.`EmpID`), '') as 'empID', IF(    CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`name`), '') as 'name', if(`roll_call`.`date`,date_format(`roll_call`.`date`,'%m/%d/%Y'),'') as 'date', TIME_FORMAT(`roll_call`.`time_in`, '%r') as 'time_in', TIME_FORMAT(`roll_call`.`time_out`, '%r') as 'time_out', `roll_call`.`day_of_week` as 'day_of_week', `roll_call`.`hours_worked` as 'hours_worked', `roll_call`.`is_late` as 'is_late', `roll_call`.`early_out` as 'early_out'",
+			'employees' => "`employees`.`EmpID` as 'EmpID', `employees`.`name` as 'name', `employees`.`department` as 'department', `employees`.`position` as 'position', `employees`.`fingerprint1` as 'fingerprint1', `employees`.`fingerprint_2` as 'fingerprint_2', `employees`.`fingerprint_3` as 'fingerprint_3', if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'') as 'date_enrolled', `employees`.`active` as 'active'",
+			'attendance' => "`attendance`.`attID` as 'attID', IF(    CHAR_LENGTH(`employees1`.`EmpID`), CONCAT_WS('',   `employees1`.`EmpID`), '') as 'empID', IF(    CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`name`), '') as 'name', if(`attendance`.`date`,date_format(`attendance`.`date`,'%m/%d/%Y'),'') as 'date', TIME_FORMAT(`attendance`.`time_in`, '%r') as 'time_in', TIME_FORMAT(`attendance`.`time_out`, '%r') as 'time_out', `attendance`.`day_of_week` as 'day_of_week', `attendance`.`hours_worked` as 'hours_worked', `attendance`.`is_late` as 'is_late', `attendance`.`early_out` as 'early_out'",
 			'insights' => "`insights`.`id` as 'id', IF(    CHAR_LENGTH(`employees1`.`EmpID`) || CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`EmpID`, '/', `employees1`.`name`), '') as 'empID', `insights`.`month` as 'month', `insights`.`year` as 'year', TIME_FORMAT(`insights`.`earliest_arrival`, '%r') as 'earliest_arrival', TIME_FORMAT(`insights`.`latest_arrival`, '%r') as 'latest_arrival', `insights`.`total_late_days` as 'total_late_days', `insights`.`total_early_outs` as 'total_early_outs', `insights`.`total_hours_worked` as 'total_hours_worked', `insights`.`best_performance` as 'best_performance'",
 		];
 
@@ -121,13 +121,13 @@
 	function get_sql_from($table_name, $skip_permissions = false, $skip_joins = false, $lower_permissions = false) {
 		$sql_from = [
 			'employees' => "`employees` ",
-			'roll_call' => "`roll_call` LEFT JOIN `employees` as employees1 ON `employees1`.`EmpID`=`roll_call`.`empID` ",
+			'attendance' => "`attendance` LEFT JOIN `employees` as employees1 ON `employees1`.`EmpID`=`attendance`.`empID` ",
 			'insights' => "`insights` LEFT JOIN `employees` as employees1 ON `employees1`.`EmpID`=`insights`.`empID` ",
 		];
 
 		$pkey = [
 			'employees' => 'EmpID',
-			'roll_call' => 'attID',
+			'attendance' => 'attID',
 			'insights' => 'id',
 		];
 
@@ -187,8 +187,9 @@
 				'fingerprint_2' => '',
 				'fingerprint_3' => '',
 				'date_enrolled' => '',
+				'active' => '',
 			],
-			'roll_call' => [
+			'attendance' => [
 				'attID' => '',
 				'empID' => '',
 				'name' => '',

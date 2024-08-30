@@ -4,7 +4,7 @@
 ?>
 <script>
 	$j(function() {
-		var tn = 'roll_call';
+		var tn = 'attendance';
 
 		/* data for selected record, or defaults if none is selected */
 		var data = {

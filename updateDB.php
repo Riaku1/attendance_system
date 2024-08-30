@@ -20,13 +20,14 @@
 				`fingerprint1` VARCHAR(40) NULL,
 				`fingerprint_2` VARCHAR(40) NULL,
 				`fingerprint_3` VARCHAR(40) NULL,
-				`date_enrolled` DATE NULL
+				`date_enrolled` DATE NULL,
+				`active` VARCHAR(12) NULL
 			) CHARSET utf8mb4"
 		);
 
 		setupTable(
-			'roll_call', " 
-			CREATE TABLE IF NOT EXISTS `roll_call` ( 
+			'attendance', " 
+			CREATE TABLE IF NOT EXISTS `attendance` ( 
 				`attID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 				PRIMARY KEY (`attID`),
 				`empID` INT UNSIGNED NULL,
@@ -40,7 +41,7 @@
 				`early_out` VARCHAR(40) NULL
 			) CHARSET utf8mb4"
 		);
-		setupIndexes('roll_call', ['empID',]);
+		setupIndexes('attendance', ['empID',]);
 
 		setupTable(
 			'insights', " 

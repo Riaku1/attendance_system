@@ -1,0 +1,16 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the <%%SELECT%%> and <%%ENDSELECT%%> formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- add the following to the attendance_init() hook (in hooks/attendance.php file) -->
+<!--     $options->ShowTableHeader = 0;     -->
+
+		<td id="attendance-empID-<%%VALUE(attID)%%>" class="attendance-empID"><%%SELECT%%><%%VALUE(empID)%%><%%ENDSELECT%%></td>
+		<td id="attendance-name-<%%VALUE(attID)%%>" class="attendance-name"><%%SELECT%%><%%VALUE(name)%%><%%ENDSELECT%%></td>
+		<td id="attendance-date-<%%VALUE(attID)%%>" class="attendance-date"><%%SELECT%%><%%VALUE(date)%%><%%ENDSELECT%%></td>
+		<td id="attendance-time_in-<%%VALUE(attID)%%>" class="attendance-time_in"><%%SELECT%%><%%VALUE(time_in)%%><%%ENDSELECT%%></td>
+		<td id="attendance-time_out-<%%VALUE(attID)%%>" class="attendance-time_out"><%%SELECT%%><%%VALUE(time_out)%%><%%ENDSELECT%%></td>
+		<td id="attendance-day_of_week-<%%VALUE(attID)%%>" class="attendance-day_of_week"><%%SELECT%%><%%VALUE(day_of_week)%%><%%ENDSELECT%%></td>
+		<td id="attendance-hours_worked-<%%VALUE(attID)%%>" class="attendance-hours_worked text-right"><%%SELECT%%><%%VALUE(hours_worked)%%><%%ENDSELECT%%></td>
+		<td id="attendance-is_late-<%%VALUE(attID)%%>" class="attendance-is_late"><%%SELECT%%><%%VALUE(is_late)%%><%%ENDSELECT%%></td>
+		<td id="attendance-early_out-<%%VALUE(attID)%%>" class="attendance-early_out"><%%SELECT%%><%%VALUE(early_out)%%><%%ENDSELECT%%></td>

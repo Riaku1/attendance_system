@@ -384,7 +384,7 @@ function employees_validateData() {
 
 	return !errors;
 }
-function roll_call_validateData() {
+function attendance_validateData() {
 	$j('.has-error').removeClass('has-error');
 	var errors = false;
 

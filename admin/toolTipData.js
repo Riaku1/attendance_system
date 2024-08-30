@@ -29,23 +29,23 @@ employees_delete1Tip=["",spacer+"This option allows each member of the group to 
 employees_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Employees' table."];
 employees_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Employees' table."];
 
-// roll_call table
-roll_call_addTip=["",spacer+"This option allows all members of the group to add records to the 'Attendance' table. A member who adds a record to the table becomes the 'owner' of that record."];
+// attendance table
+attendance_addTip=["",spacer+"This option allows all members of the group to add records to the 'Attendance' table. A member who adds a record to the table becomes the 'owner' of that record."];
 
-roll_call_view0Tip=["",spacer+"This option prohibits all members of the group from viewing any record in the 'Attendance' table."];
-roll_call_view1Tip=["",spacer+"This option allows each member of the group to view only his own records in the 'Attendance' table."];
-roll_call_view2Tip=["",spacer+"This option allows each member of the group to view any record owned by any member of the group in the 'Attendance' table."];
-roll_call_view3Tip=["",spacer+"This option allows each member of the group to view all records in the 'Attendance' table."];
+attendance_view0Tip=["",spacer+"This option prohibits all members of the group from viewing any record in the 'Attendance' table."];
+attendance_view1Tip=["",spacer+"This option allows each member of the group to view only his own records in the 'Attendance' table."];
+attendance_view2Tip=["",spacer+"This option allows each member of the group to view any record owned by any member of the group in the 'Attendance' table."];
+attendance_view3Tip=["",spacer+"This option allows each member of the group to view all records in the 'Attendance' table."];
 
-roll_call_edit0Tip=["",spacer+"This option prohibits all members of the group from modifying any record in the 'Attendance' table."];
-roll_call_edit1Tip=["",spacer+"This option allows each member of the group to edit only his own records in the 'Attendance' table."];
-roll_call_edit2Tip=["",spacer+"This option allows each member of the group to edit any record owned by any member of the group in the 'Attendance' table."];
-roll_call_edit3Tip=["",spacer+"This option allows each member of the group to edit any records in the 'Attendance' table, regardless of their owner."];
+attendance_edit0Tip=["",spacer+"This option prohibits all members of the group from modifying any record in the 'Attendance' table."];
+attendance_edit1Tip=["",spacer+"This option allows each member of the group to edit only his own records in the 'Attendance' table."];
+attendance_edit2Tip=["",spacer+"This option allows each member of the group to edit any record owned by any member of the group in the 'Attendance' table."];
+attendance_edit3Tip=["",spacer+"This option allows each member of the group to edit any records in the 'Attendance' table, regardless of their owner."];
 
-roll_call_delete0Tip=["",spacer+"This option prohibits all members of the group from deleting any record in the 'Attendance' table."];
-roll_call_delete1Tip=["",spacer+"This option allows each member of the group to delete only his own records in the 'Attendance' table."];
-roll_call_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Attendance' table."];
-roll_call_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Attendance' table."];
+attendance_delete0Tip=["",spacer+"This option prohibits all members of the group from deleting any record in the 'Attendance' table."];
+attendance_delete1Tip=["",spacer+"This option allows each member of the group to delete only his own records in the 'Attendance' table."];
+attendance_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Attendance' table."];
+attendance_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Attendance' table."];
 
 // insights table
 insights_addTip=["",spacer+"This option allows all members of the group to add records to the 'Insights' table. A member who adds a record to the table becomes the 'owner' of that record."];

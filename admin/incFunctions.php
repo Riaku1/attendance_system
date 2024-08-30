@@ -110,7 +110,7 @@
 					'group' => $tg[0],
 					'homepageShowCount' => 0
 				],
-				'roll_call' => [
+				'attendance' => [
 					'Caption' => 'Attendance',
 					'Description' => '',
 					'tableIcon' => 'table.gif',
@@ -141,7 +141,7 @@
 		$arrTables = [
 			/* 'table_name' => ['table caption', 'homepage description', 'icon', 'table group name'] */   
 			'employees' => ['Employees', '', 'table.gif', 'None'],
-			'roll_call' => ['Attendance', '', 'table.gif', 'None'],
+			'attendance' => ['Attendance', '', 'table.gif', 'None'],
 			'insights' => ['Insights', '', 'table.gif', 'None'],
 		];
 		if($skip_authentication || getLoggedAdmin()) return $arrTables;
@@ -997,8 +997,15 @@
 							'description' => '',
 						],
 					],
+					'active' => [
+						'appgini' => "VARCHAR(12) NULL",
+						'info' => [
+							'caption' => 'Active',
+							'description' => '',
+						],
+					],
 				],
-				'roll_call' => [
+				'attendance' => [
 					'attID' => [
 						'appgini' => "INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT",
 						'info' => [
@@ -2169,7 +2176,7 @@
 		 *             'parent table' => [main lookup fields in child]
 		 */
 		$parents = [
-			'roll_call' => [
+			'attendance' => [
 				'employees' => ['empID'],
 			],
 			'insights' => [
@@ -2201,7 +2208,7 @@
 		 */
 		return [
 			'employees' => [],
-			'roll_call' => [],
+			'attendance' => [],
 			'insights' => [],
 		];
 	}
@@ -2334,7 +2341,7 @@
 		$lookupQuery = [
 			'employees' => [
 			],
-			'roll_call' => [
+			'attendance' => [
 				'empID' => 'SELECT `employees`.`EmpID`, `employees`.`EmpID` FROM `employees` ORDER BY 2',
 				'name' => 'SELECT `employees`.`EmpID`, `employees`.`name` FROM `employees` ORDER BY 2',
 			],

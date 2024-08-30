@@ -26,6 +26,7 @@
 		"`employees`.`fingerprint_2`" => "fingerprint_2",
 		"`employees`.`fingerprint_3`" => "fingerprint_3",
 		"if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'')" => "date_enrolled",
+		"`employees`.`active`" => "active",
 	];
 	// mapping incoming sort by requests to actual query fields
 	$x->SortFields = [
@@ -37,6 +38,7 @@
 		6 => 6,
 		7 => 7,
 		8 => '`employees`.`date_enrolled`',
+		9 => 9,
 	];
 
 	// Fields that can be displayed in the csv file
@@ -49,6 +51,7 @@
 		"`employees`.`fingerprint_2`" => "fingerprint_2",
 		"`employees`.`fingerprint_3`" => "fingerprint_3",
 		"if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'')" => "date_enrolled",
+		"`employees`.`active`" => "active",
 	];
 	// Fields that can be filtered
 	$x->QueryFieldsFilters = [
@@ -60,6 +63,7 @@
 		"`employees`.`fingerprint_2`" => "Fingerprint 2",
 		"`employees`.`fingerprint_3`" => "Fingerprint 3",
 		"`employees`.`date_enrolled`" => "Date enrolled",
+		"`employees`.`active`" => "Active",
 	];
 
 	// Fields that can be quick searched
@@ -72,6 +76,7 @@
 		"`employees`.`fingerprint_2`" => "fingerprint_2",
 		"`employees`.`fingerprint_3`" => "fingerprint_3",
 		"if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'')" => "date_enrolled",
+		"`employees`.`active`" => "active",
 	];
 
 	// Lookup fields that can be used as filterers
@@ -104,10 +109,10 @@
 	$x->TableIcon = 'table.gif';
 	$x->PrimaryKey = '`employees`.`EmpID`';
 
-	$x->ColWidth = [150, 150, 150, 150, 150, 150, 150, ];
-	$x->ColCaption = ['Name', 'Department', 'Position', 'Fingerprint 1', 'Fingerprint 2', 'Fingerprint 3', 'Date enrolled', ];
-	$x->ColFieldName = ['name', 'department', 'position', 'fingerprint1', 'fingerprint_2', 'fingerprint_3', 'date_enrolled', ];
-	$x->ColNumber  = [2, 3, 4, 5, 6, 7, 8, ];
+	$x->ColWidth = [150, 150, 150, 150, 150, 150, 150, 150, ];
+	$x->ColCaption = ['Name', 'Department', 'Position', 'Fingerprint 1', 'Fingerprint 2', 'Fingerprint 3', 'Date enrolled', 'Active', ];
+	$x->ColFieldName = ['name', 'department', 'position', 'fingerprint1', 'fingerprint_2', 'fingerprint_3', 'date_enrolled', 'active', ];
+	$x->ColNumber  = [2, 3, 4, 5, 6, 7, 8, 9, ];
 
 	// template paths below are based on the app main directory
 	$x->Template = 'templates/employees_templateTV.html';

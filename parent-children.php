@@ -8,7 +8,7 @@
 		$pcConfig = [
 			'employees' => [
 			],
-			'roll_call' => [
+			'attendance' => [
 			],
 			'insights' => [
 			],
