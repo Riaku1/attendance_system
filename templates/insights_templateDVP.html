@@ -1,0 +1,99 @@
+<!-- Edit this file to change the layout of the detail view print preview page -->
+
+
+<div class="panel-heading"><h3 class="panel-title">
+	<strong><%%DETAIL_VIEW_TITLE%%></strong>
+	<div class="hidden-print pull-right">
+		<div class="btn-group">
+			<button type="button" id="print" onclick="window.print();" title="<%%TRANSLATION(Print)%%>" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> <%%TRANSLATION(Print)%%></button>
+			<button type="submit" id="back" title="<%%TRANSLATION(Cancel Printing)%%>" class="btn btn-default"><i class="glyphicon glyphicon-remove-circle"></i> <%%TRANSLATION(Cancel Printing)%%></button>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</h3></div>
+
+<div class="panel-body">
+	<fieldset class="form-horizontal">
+		<!-- Field: ID -->
+		<div class="form-group insights-id" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">ID</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(id)%%></div>
+			</div>
+		</div>
+		<!-- Field: EmpID -->
+		<div class="form-group insights-empID" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">EmpID</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><span id="empID<%%RND1%%>"><%%COMBOTEXT(empID)%%></span></div>
+			</div>
+		</div>
+		<!-- Field: Month -->
+		<div class="form-group insights-month" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Month</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(month)%%></div>
+			</div>
+		</div>
+		<!-- Field: Year -->
+		<div class="form-group insights-year" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Year</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(year)%%></div>
+			</div>
+		</div>
+		<!-- Field: Earliest arrival -->
+		<div class="form-group insights-earliest_arrival" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Earliest arrival</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(earliest_arrival)%%></div>
+			</div>
+		</div>
+		<!-- Field: Latest arrival -->
+		<div class="form-group insights-latest_arrival" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Latest arrival</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(latest_arrival)%%></div>
+			</div>
+		</div>
+		<!-- Field: Total late days -->
+		<div class="form-group insights-total_late_days" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Total late days</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(total_late_days)%%></div>
+			</div>
+		</div>
+		<!-- Field: Total early outs -->
+		<div class="form-group insights-total_early_outs" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Total early outs</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(total_early_outs)%%></div>
+			</div>
+		</div>
+		<!-- Field: Total hours worked -->
+		<div class="form-group insights-total_hours_worked" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Total hours worked</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(total_hours_worked)%%></div>
+			</div>
+		</div>
+		<!-- Field: Best performance -->
+		<div class="form-group insights-best_performance" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Best performance</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(best_performance)%%></div>
+			</div>
+		</div>
+	</fieldset>
+</div>
+<script>
+	$j(function() {
+		// render read-only checkboxes in DVP
+		$j('form input[type=checkbox]:not(.hidden):checked')
+			.addClass('hidden')
+			.after('<i class="glyphicon glyphicon-check"></i>');
+		$j('form input[type=checkbox]:not(.hidden):not(:checked)')
+			.addClass('hidden')
+			.after('<i class="glyphicon glyphicon-unchecked"></i>')
+	})
+</script>

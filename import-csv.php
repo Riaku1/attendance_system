@@ -5,14 +5,19 @@
 	// accept a record as an assoc array, return transformed row ready to insert to table
 	$transformFunctions = [
 		'employees' => function($data, $options = []) {
+			if(isset($data['date_enrolled'])) $data['date_enrolled'] = guessMySQLDateTime($data['date_enrolled']);
 
 			return $data;
 		},
-		'emp_id' => function($data, $options = []) {
+		'roll_call' => function($data, $options = []) {
+			if(isset($data['empID'])) $data['empID'] = pkGivenLookupText($data['empID'], 'roll_call', 'empID');
+			if(isset($data['date'])) $data['date'] = guessMySQLDateTime($data['date']);
+			if(isset($data['name'])) $data['name'] = thisOr($data['empID'], pkGivenLookupText($data['name'], 'roll_call', 'name'));
 
 			return $data;
 		},
-		'roles' => function($data, $options = []) {
+		'insights' => function($data, $options = []) {
+			if(isset($data['empID'])) $data['empID'] = pkGivenLookupText($data['empID'], 'insights', 'empID');
 
 			return $data;
 		},
@@ -21,8 +26,8 @@
 	// accept a record as an assoc array, return a boolean indicating whether to import or skip record
 	$filterFunctions = [
 		'employees' => function($data, $options = []) { return true; },
-		'emp_id' => function($data, $options = []) { return true; },
-		'roles' => function($data, $options = []) { return true; },
+		'roll_call' => function($data, $options = []) { return true; },
+		'insights' => function($data, $options = []) { return true; },
 	];
 
 	/*

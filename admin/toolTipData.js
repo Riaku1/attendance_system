@@ -29,41 +29,41 @@ employees_delete1Tip=["",spacer+"This option allows each member of the group to 
 employees_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Employees' table."];
 employees_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Employees' table."];
 
-// emp_id table
-emp_id_addTip=["",spacer+"This option allows all members of the group to add records to the 'Attendance' table. A member who adds a record to the table becomes the 'owner' of that record."];
+// roll_call table
+roll_call_addTip=["",spacer+"This option allows all members of the group to add records to the 'Attendance' table. A member who adds a record to the table becomes the 'owner' of that record."];
 
-emp_id_view0Tip=["",spacer+"This option prohibits all members of the group from viewing any record in the 'Attendance' table."];
-emp_id_view1Tip=["",spacer+"This option allows each member of the group to view only his own records in the 'Attendance' table."];
-emp_id_view2Tip=["",spacer+"This option allows each member of the group to view any record owned by any member of the group in the 'Attendance' table."];
-emp_id_view3Tip=["",spacer+"This option allows each member of the group to view all records in the 'Attendance' table."];
+roll_call_view0Tip=["",spacer+"This option prohibits all members of the group from viewing any record in the 'Attendance' table."];
+roll_call_view1Tip=["",spacer+"This option allows each member of the group to view only his own records in the 'Attendance' table."];
+roll_call_view2Tip=["",spacer+"This option allows each member of the group to view any record owned by any member of the group in the 'Attendance' table."];
+roll_call_view3Tip=["",spacer+"This option allows each member of the group to view all records in the 'Attendance' table."];
 
-emp_id_edit0Tip=["",spacer+"This option prohibits all members of the group from modifying any record in the 'Attendance' table."];
-emp_id_edit1Tip=["",spacer+"This option allows each member of the group to edit only his own records in the 'Attendance' table."];
-emp_id_edit2Tip=["",spacer+"This option allows each member of the group to edit any record owned by any member of the group in the 'Attendance' table."];
-emp_id_edit3Tip=["",spacer+"This option allows each member of the group to edit any records in the 'Attendance' table, regardless of their owner."];
+roll_call_edit0Tip=["",spacer+"This option prohibits all members of the group from modifying any record in the 'Attendance' table."];
+roll_call_edit1Tip=["",spacer+"This option allows each member of the group to edit only his own records in the 'Attendance' table."];
+roll_call_edit2Tip=["",spacer+"This option allows each member of the group to edit any record owned by any member of the group in the 'Attendance' table."];
+roll_call_edit3Tip=["",spacer+"This option allows each member of the group to edit any records in the 'Attendance' table, regardless of their owner."];
 
-emp_id_delete0Tip=["",spacer+"This option prohibits all members of the group from deleting any record in the 'Attendance' table."];
-emp_id_delete1Tip=["",spacer+"This option allows each member of the group to delete only his own records in the 'Attendance' table."];
-emp_id_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Attendance' table."];
-emp_id_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Attendance' table."];
+roll_call_delete0Tip=["",spacer+"This option prohibits all members of the group from deleting any record in the 'Attendance' table."];
+roll_call_delete1Tip=["",spacer+"This option allows each member of the group to delete only his own records in the 'Attendance' table."];
+roll_call_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Attendance' table."];
+roll_call_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Attendance' table."];
 
-// roles table
-roles_addTip=["",spacer+"This option allows all members of the group to add records to the 'Roles' table. A member who adds a record to the table becomes the 'owner' of that record."];
+// insights table
+insights_addTip=["",spacer+"This option allows all members of the group to add records to the 'Insights' table. A member who adds a record to the table becomes the 'owner' of that record."];
 
-roles_view0Tip=["",spacer+"This option prohibits all members of the group from viewing any record in the 'Roles' table."];
-roles_view1Tip=["",spacer+"This option allows each member of the group to view only his own records in the 'Roles' table."];
-roles_view2Tip=["",spacer+"This option allows each member of the group to view any record owned by any member of the group in the 'Roles' table."];
-roles_view3Tip=["",spacer+"This option allows each member of the group to view all records in the 'Roles' table."];
+insights_view0Tip=["",spacer+"This option prohibits all members of the group from viewing any record in the 'Insights' table."];
+insights_view1Tip=["",spacer+"This option allows each member of the group to view only his own records in the 'Insights' table."];
+insights_view2Tip=["",spacer+"This option allows each member of the group to view any record owned by any member of the group in the 'Insights' table."];
+insights_view3Tip=["",spacer+"This option allows each member of the group to view all records in the 'Insights' table."];
 
-roles_edit0Tip=["",spacer+"This option prohibits all members of the group from modifying any record in the 'Roles' table."];
-roles_edit1Tip=["",spacer+"This option allows each member of the group to edit only his own records in the 'Roles' table."];
-roles_edit2Tip=["",spacer+"This option allows each member of the group to edit any record owned by any member of the group in the 'Roles' table."];
-roles_edit3Tip=["",spacer+"This option allows each member of the group to edit any records in the 'Roles' table, regardless of their owner."];
+insights_edit0Tip=["",spacer+"This option prohibits all members of the group from modifying any record in the 'Insights' table."];
+insights_edit1Tip=["",spacer+"This option allows each member of the group to edit only his own records in the 'Insights' table."];
+insights_edit2Tip=["",spacer+"This option allows each member of the group to edit any record owned by any member of the group in the 'Insights' table."];
+insights_edit3Tip=["",spacer+"This option allows each member of the group to edit any records in the 'Insights' table, regardless of their owner."];
 
-roles_delete0Tip=["",spacer+"This option prohibits all members of the group from deleting any record in the 'Roles' table."];
-roles_delete1Tip=["",spacer+"This option allows each member of the group to delete only his own records in the 'Roles' table."];
-roles_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Roles' table."];
-roles_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Roles' table."];
+insights_delete0Tip=["",spacer+"This option prohibits all members of the group from deleting any record in the 'Insights' table."];
+insights_delete1Tip=["",spacer+"This option allows each member of the group to delete only his own records in the 'Insights' table."];
+insights_delete2Tip=["",spacer+"This option allows each member of the group to delete any record owned by any member of the group in the 'Insights' table."];
+insights_delete3Tip=["",spacer+"This option allows each member of the group to delete any records in the 'Insights' table."];
 
 /*
 	Style syntax:

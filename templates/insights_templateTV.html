@@ -1,0 +1,16 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the <%%SELECT%%> and <%%ENDSELECT%%> formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- add the following to the insights_init() hook (in hooks/insights.php file) -->
+<!--     $options->ShowTableHeader = 0;     -->
+
+		<td id="insights-empID-<%%VALUE(id)%%>" class="insights-empID"><%%SELECT%%><%%VALUE(empID)%%><%%ENDSELECT%%></td>
+		<td id="insights-month-<%%VALUE(id)%%>" class="insights-month"><%%SELECT%%><%%VALUE(month)%%><%%ENDSELECT%%></td>
+		<td id="insights-year-<%%VALUE(id)%%>" class="insights-year"><%%SELECT%%><%%VALUE(year)%%><%%ENDSELECT%%></td>
+		<td id="insights-earliest_arrival-<%%VALUE(id)%%>" class="insights-earliest_arrival"><%%SELECT%%><%%VALUE(earliest_arrival)%%><%%ENDSELECT%%></td>
+		<td id="insights-latest_arrival-<%%VALUE(id)%%>" class="insights-latest_arrival"><%%SELECT%%><%%VALUE(latest_arrival)%%><%%ENDSELECT%%></td>
+		<td id="insights-total_late_days-<%%VALUE(id)%%>" class="insights-total_late_days"><%%SELECT%%><%%VALUE(total_late_days)%%><%%ENDSELECT%%></td>
+		<td id="insights-total_early_outs-<%%VALUE(id)%%>" class="insights-total_early_outs"><%%SELECT%%><%%VALUE(total_early_outs)%%><%%ENDSELECT%%></td>
+		<td id="insights-total_hours_worked-<%%VALUE(id)%%>" class="insights-total_hours_worked"><%%SELECT%%><%%VALUE(total_hours_worked)%%><%%ENDSELECT%%></td>
+		<td id="insights-best_performance-<%%VALUE(id)%%>" class="insights-best_performance"><%%SELECT%%><%%VALUE(best_performance)%%><%%ENDSELECT%%></td>

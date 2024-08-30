@@ -384,13 +384,13 @@ function employees_validateData() {
 
 	return !errors;
 }
-function emp_id_validateData() {
+function roll_call_validateData() {
 	$j('.has-error').removeClass('has-error');
 	var errors = false;
 
 	return !errors;
 }
-function roles_validateData() {
+function insights_validateData() {
 	$j('.has-error').removeClass('has-error');
 	var errors = false;
 

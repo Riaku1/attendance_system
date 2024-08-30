@@ -106,9 +106,9 @@
 
 	function get_sql_fields($table_name) {
 		$sql_fields = [
-			'employees' => "`employees`.`id` as 'id', `employees`.`first_name` as 'first_name'",
-			'emp_id' => "`emp_id`.`id` as 'id', `emp_id`.`field2` as 'field2'",
-			'roles' => "`roles`.`id` as 'id', `roles`.`role_name` as 'role_name'",
+			'employees' => "`employees`.`EmpID` as 'EmpID', `employees`.`name` as 'name', `employees`.`department` as 'department', `employees`.`position` as 'position', `employees`.`fingerprint1` as 'fingerprint1', `employees`.`fingerprint_2` as 'fingerprint_2', `employees`.`fingerprint_3` as 'fingerprint_3', if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'') as 'date_enrolled'",
+			'roll_call' => "`roll_call`.`attID` as 'attID', IF(    CHAR_LENGTH(`employees1`.`EmpID`), CONCAT_WS('',   `employees1`.`EmpID`), '') as 'empID', IF(    CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`name`), '') as 'name', if(`roll_call`.`date`,date_format(`roll_call`.`date`,'%m/%d/%Y'),'') as 'date', TIME_FORMAT(`roll_call`.`time_in`, '%r') as 'time_in', TIME_FORMAT(`roll_call`.`time_out`, '%r') as 'time_out', `roll_call`.`day_of_week` as 'day_of_week', `roll_call`.`hours_worked` as 'hours_worked', `roll_call`.`is_late` as 'is_late', `roll_call`.`early_out` as 'early_out'",
+			'insights' => "`insights`.`id` as 'id', IF(    CHAR_LENGTH(`employees1`.`EmpID`) || CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`EmpID`, '/', `employees1`.`name`), '') as 'empID', `insights`.`month` as 'month', `insights`.`year` as 'year', TIME_FORMAT(`insights`.`earliest_arrival`, '%r') as 'earliest_arrival', TIME_FORMAT(`insights`.`latest_arrival`, '%r') as 'latest_arrival', `insights`.`total_late_days` as 'total_late_days', `insights`.`total_early_outs` as 'total_early_outs', `insights`.`total_hours_worked` as 'total_hours_worked', `insights`.`best_performance` as 'best_performance'",
 		];
 
 		if(isset($sql_fields[$table_name])) return $sql_fields[$table_name];
@@ -121,14 +121,14 @@
 	function get_sql_from($table_name, $skip_permissions = false, $skip_joins = false, $lower_permissions = false) {
 		$sql_from = [
 			'employees' => "`employees` ",
-			'emp_id' => "`emp_id` ",
-			'roles' => "`roles` ",
+			'roll_call' => "`roll_call` LEFT JOIN `employees` as employees1 ON `employees1`.`EmpID`=`roll_call`.`empID` ",
+			'insights' => "`insights` LEFT JOIN `employees` as employees1 ON `employees1`.`EmpID`=`insights`.`empID` ",
 		];
 
 		$pkey = [
-			'employees' => 'id',
-			'emp_id' => 'id',
-			'roles' => 'id',
+			'employees' => 'EmpID',
+			'roll_call' => 'attID',
+			'insights' => 'id',
 		];
 
 		if(!isset($sql_from[$table_name])) return false;
@@ -179,16 +179,38 @@
 		/* array of tables and their fields, with default values (or empty), excluding automatic values */
 		$defaults = [
 			'employees' => [
-				'id' => '',
-				'first_name' => '',
+				'EmpID' => '',
+				'name' => '',
+				'department' => '',
+				'position' => '',
+				'fingerprint1' => '',
+				'fingerprint_2' => '',
+				'fingerprint_3' => '',
+				'date_enrolled' => '',
 			],
-			'emp_id' => [
-				'id' => '',
-				'field2' => '',
+			'roll_call' => [
+				'attID' => '',
+				'empID' => '',
+				'name' => '',
+				'date' => '1',
+				'time_in' => '',
+				'time_out' => '',
+				'day_of_week' => '',
+				'hours_worked' => '',
+				'is_late' => '',
+				'early_out' => '',
 			],
-			'roles' => [
+			'insights' => [
 				'id' => '',
-				'role_name' => '',
+				'empID' => '',
+				'month' => '',
+				'year' => '',
+				'earliest_arrival' => '',
+				'latest_arrival' => '',
+				'total_late_days' => '',
+				'total_early_outs' => '',
+				'total_hours_worked' => '',
+				'best_performance' => '',
 			],
 		];
 

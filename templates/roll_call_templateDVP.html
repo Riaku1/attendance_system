@@ -1,0 +1,99 @@
+<!-- Edit this file to change the layout of the detail view print preview page -->
+
+
+<div class="panel-heading"><h3 class="panel-title">
+	<strong><%%DETAIL_VIEW_TITLE%%></strong>
+	<div class="hidden-print pull-right">
+		<div class="btn-group">
+			<button type="button" id="print" onclick="window.print();" title="<%%TRANSLATION(Print)%%>" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> <%%TRANSLATION(Print)%%></button>
+			<button type="submit" id="back" title="<%%TRANSLATION(Cancel Printing)%%>" class="btn btn-default"><i class="glyphicon glyphicon-remove-circle"></i> <%%TRANSLATION(Cancel Printing)%%></button>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</h3></div>
+
+<div class="panel-body">
+	<fieldset class="form-horizontal">
+		<!-- Field: AttID -->
+		<div class="form-group roll_call-attID" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">AttID</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(attID)%%></div>
+			</div>
+		</div>
+		<!-- Field: EmpID -->
+		<div class="form-group roll_call-empID" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">EmpID</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><span id="empID<%%RND1%%>"><%%COMBOTEXT(empID)%%></span></div>
+			</div>
+		</div>
+		<!-- Field: Name -->
+		<div class="form-group roll_call-name" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Name</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><span id="name<%%RND1%%>"></span></div>
+			</div>
+		</div>
+		<!-- Field: Date -->
+		<div class="form-group roll_call-date" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Date</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%COMBOTEXT(date)%%></div>
+			</div>
+		</div>
+		<!-- Field: Time in -->
+		<div class="form-group roll_call-time_in" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Time in</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(time_in)%%></div>
+			</div>
+		</div>
+		<!-- Field: Time out -->
+		<div class="form-group roll_call-time_out" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Time out</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(time_out)%%></div>
+			</div>
+		</div>
+		<!-- Field: Day of week -->
+		<div class="form-group roll_call-day_of_week" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Day of week</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(day_of_week)%%></div>
+			</div>
+		</div>
+		<!-- Field: Hours worked -->
+		<div class="form-group roll_call-hours_worked" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Hours worked</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(hours_worked)%%></div>
+			</div>
+		</div>
+		<!-- Field: Is late -->
+		<div class="form-group roll_call-is_late" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Is late</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%COMBOTEXT(is_late)%%></div>
+			</div>
+		</div>
+		<!-- Field: Early out -->
+		<div class="form-group roll_call-early_out" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Early out</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(early_out)%%></div>
+			</div>
+		</div>
+	</fieldset>
+</div>
+<script>
+	$j(function() {
+		// render read-only checkboxes in DVP
+		$j('form input[type=checkbox]:not(.hidden):checked')
+			.addClass('hidden')
+			.after('<i class="glyphicon glyphicon-check"></i>');
+		$j('form input[type=checkbox]:not(.hidden):not(:checked)')
+			.addClass('hidden')
+			.after('<i class="glyphicon glyphicon-unchecked"></i>')
+	})
+</script>

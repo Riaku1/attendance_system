@@ -14,18 +14,60 @@
 
 <div class="panel-body">
 	<fieldset class="form-horizontal">
-		<!-- Field: ID -->
-		<div class="form-group employees-id" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">ID</label>
+		<!-- Field: EmpID -->
+		<div class="form-group employees-EmpID" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">EmpID</label>
 			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(id)%%></div>
+				<div class="form-control-static"><%%VALUE(EmpID)%%></div>
 			</div>
 		</div>
-		<!-- Field: First name -->
-		<div class="form-group employees-first_name" style="border-bottom: dotted 1px #DDD;">
-			<label class="col-xs-3 control-label">First name</label>
+		<!-- Field: Name -->
+		<div class="form-group employees-name" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Name</label>
 			<div class="col-xs-9">
-				<div class="form-control-static"><%%VALUE(first_name)%%></div>
+				<div class="form-control-static"><%%VALUE(name)%%></div>
+			</div>
+		</div>
+		<!-- Field: Department -->
+		<div class="form-group employees-department" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Department</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(department)%%></div>
+			</div>
+		</div>
+		<!-- Field: Position -->
+		<div class="form-group employees-position" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Position</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(position)%%></div>
+			</div>
+		</div>
+		<!-- Field: Fingerprint 1 -->
+		<div class="form-group employees-fingerprint1" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Fingerprint 1</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(fingerprint1)%%></div>
+			</div>
+		</div>
+		<!-- Field: Fingerprint 2 -->
+		<div class="form-group employees-fingerprint_2" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Fingerprint 2</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(fingerprint_2)%%></div>
+			</div>
+		</div>
+		<!-- Field: Fingerprint 3 -->
+		<div class="form-group employees-fingerprint_3" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Fingerprint 3</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(fingerprint_3)%%></div>
+			</div>
+		</div>
+		<!-- Field: Date enrolled -->
+		<div class="form-group employees-date_enrolled" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Date enrolled</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%COMBOTEXT(date_enrolled)%%></div>
 			</div>
 		</div>
 	</fieldset>
@@ -41,3 +83,32 @@
 			.after('<i class="glyphicon glyphicon-unchecked"></i>')
 	})
 </script>
+<!-- child records -->
+<div class="panel-body">
+	<div id="employees-children"></div>
+</div>
+
+<script>
+	$j(function() {
+		/* prevent loading child records in multiple DVP */
+		if($j('[id=employees-children]').length > 1) return;
+
+		post(
+			'parent-children.php', {
+				ParentTable: 'employees',
+				SelectedID: '<%%VALUE(EmpID)%%>',
+				Operation: 'show-children-printable'
+			},
+			'employees-children',
+			'disable-element',
+			'loading-element',
+			apply_persisting_children
+		);
+
+		$j('form').on('click', '#children-tabs button[data-target]', function() {
+			$j(this).toggleClass('active');
+			persist_expanded_child($j(this).attr('id'));
+		});
+	})
+</script>
+

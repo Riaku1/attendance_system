@@ -12,29 +12,53 @@
 		setupTable(
 			'employees', " 
 			CREATE TABLE IF NOT EXISTS `employees` ( 
-				`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-				PRIMARY KEY (`id`),
-				`first_name` VARCHAR(40) NULL
+				`EmpID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+				PRIMARY KEY (`EmpID`),
+				`name` VARCHAR(40) NULL,
+				`department` VARCHAR(40) NULL,
+				`position` VARCHAR(40) NULL,
+				`fingerprint1` VARCHAR(40) NULL,
+				`fingerprint_2` VARCHAR(40) NULL,
+				`fingerprint_3` VARCHAR(40) NULL,
+				`date_enrolled` DATE NULL
 			) CHARSET utf8mb4"
 		);
 
 		setupTable(
-			'emp_id', " 
-			CREATE TABLE IF NOT EXISTS `emp_id` ( 
-				`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-				PRIMARY KEY (`id`),
-				`field2` VARCHAR(40) NULL
+			'roll_call', " 
+			CREATE TABLE IF NOT EXISTS `roll_call` ( 
+				`attID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+				PRIMARY KEY (`attID`),
+				`empID` INT UNSIGNED NULL,
+				`name` INT UNSIGNED NULL,
+				`date` DATE NULL,
+				`time_in` TIME NULL,
+				`time_out` TIME NULL,
+				`day_of_week` VARCHAR(40) NULL,
+				`hours_worked` INT NULL,
+				`is_late` VARCHAR(40) NULL,
+				`early_out` VARCHAR(40) NULL
 			) CHARSET utf8mb4"
 		);
+		setupIndexes('roll_call', ['empID',]);
 
 		setupTable(
-			'roles', " 
-			CREATE TABLE IF NOT EXISTS `roles` ( 
+			'insights', " 
+			CREATE TABLE IF NOT EXISTS `insights` ( 
 				`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 				PRIMARY KEY (`id`),
-				`role_name` VARCHAR(40) NULL
+				`empID` INT UNSIGNED NULL,
+				`month` INT NULL,
+				`year` YEAR NULL,
+				`earliest_arrival` TIME NULL,
+				`latest_arrival` TIME NULL,
+				`total_late_days` VARCHAR(40) NULL,
+				`total_early_outs` VARCHAR(40) NULL,
+				`total_hours_worked` VARCHAR(40) NULL,
+				`best_performance` VARCHAR(40) NULL
 			) CHARSET utf8mb4"
 		);
+		setupIndexes('insights', ['empID',]);
 
 
 

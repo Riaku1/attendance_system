@@ -8,9 +8,9 @@
 		$pcConfig = [
 			'employees' => [
 			],
-			'emp_id' => [
+			'roll_call' => [
 			],
-			'roles' => [
+			'insights' => [
 			],
 		];
 

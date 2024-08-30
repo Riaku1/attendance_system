@@ -1,20 +1,14 @@
-<!-- To change the layout of the detail view form, we recommend using JS code in hooks/employees-dv.js rather than editing this file -->
+<!-- To change the layout of the detail view form, we recommend using JS code in hooks/insights-dv.js rather than editing this file -->
 
 <div id="detail-view"></div>
 <div class="panel-heading"><h3 class="panel-title"><strong><%%DETAIL_VIEW_TITLE%%></strong></h3></div>
 
-<div id="employees_dv_container-loading" class="text-center text-info text-bold vspacer-lg"><i class="glyphicon glyphicon-refresh loop-rotate"></i> <%%TRANSLATION(Loading ...)%%></div>
+<div id="insights_dv_container-loading" class="text-center text-info text-bold vspacer-lg"><i class="glyphicon glyphicon-refresh loop-rotate"></i> <%%TRANSLATION(Loading ...)%%></div>
 
-<div class="panel-body hidden" id="employees_dv_container">
+<div class="panel-body hidden" id="insights_dv_container">
 	<!-- child links -->
 	<div class="row vspacer-md">
 		<div class="col-xs-12 children-links">
-			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="roll_call_link"><img src="table.gif"> Attendance</a>
-			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_roll_call_link"><img src="table.gif"> Attendance</a>
-			<input type="hidden" id="roll_call_hclink" value="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
-			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="insights_link"><img src="table.gif"> Insights</a>
-			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_insights_link"><img src="table.gif"> Insights</a>
-			<input type="hidden" id="insights_hclink" value="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
 			<div class="clearfix"></div>
 		</div>
 	</div>
@@ -22,78 +16,96 @@
 
 	<div class="row">
 		<!-- form inputs -->
-		<div class="col-md-8 col-lg-10" id="employees_dv_form">
+		<div class="col-md-8 col-lg-10" id="insights_dv_form">
 			<fieldset class="form-horizontal">
 
+				<!-- Field: ID -->
+				<div class="form-group insights-id">
+					<hr class="hidden-md hidden-lg">
+					<label class="control-label col-lg-3" for="id">ID</label>
+					<div class="col-lg-9">
+						<div class="form-control-static" id="id"><%%VALUE(id)%%></div>
+					</div>
+				</div>
+
 				<!-- Field: EmpID -->
-				<div class="form-group employees-EmpID">
+				<div class="form-group insights-empID">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="EmpID">EmpID</label>
+					<label class="control-label col-lg-3" for="empID" data-parent_link="view_parent_modal">EmpID</label>
 					<div class="col-lg-9">
-						<div class="form-control-static" id="EmpID"><%%VALUE(EmpID)%%></div>
+						<div class="lookup-flex"><%%COMBO(empID)%%><%%PLINK(empID)%%><%%ADDNEW(employees)%%></div>
 					</div>
 				</div>
 
-				<!-- Field: Name -->
-				<div class="form-group employees-name">
+				<!-- Field: Month -->
+				<div class="form-group insights-month">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="name">Name</label>
+					<label class="control-label col-lg-3" for="month">Month</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="name" id="name" value="<%%VALUE(name)%%>">
+						<input type="text" class="form-control" name="month" id="month" value="<%%VALUE(month)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Department -->
-				<div class="form-group employees-department">
+				<!-- Field: Year -->
+				<div class="form-group insights-year">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="department">Department</label>
+					<label class="control-label col-lg-3" for="year">Year</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="department" id="department" value="<%%VALUE(department)%%>">
+						<input type="text" class="form-control" name="year" id="year" value="<%%VALUE(year)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Position -->
-				<div class="form-group employees-position">
+				<!-- Field: Earliest arrival -->
+				<div class="form-group insights-earliest_arrival">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="position">Position</label>
+					<label class="control-label col-lg-3" for="earliest_arrival">Earliest arrival</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="position" id="position" value="<%%VALUE(position)%%>">
+						<input type="text" class="form-control" name="earliest_arrival" id="earliest_arrival" value="<%%VALUE(earliest_arrival)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Fingerprint 1 -->
-				<div class="form-group employees-fingerprint1">
+				<!-- Field: Latest arrival -->
+				<div class="form-group insights-latest_arrival">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="fingerprint1">Fingerprint 1</label>
+					<label class="control-label col-lg-3" for="latest_arrival">Latest arrival</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint1" id="fingerprint1" value="<%%VALUE(fingerprint1)%%>">
+						<input type="text" class="form-control" name="latest_arrival" id="latest_arrival" value="<%%VALUE(latest_arrival)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Fingerprint 2 -->
-				<div class="form-group employees-fingerprint_2">
+				<!-- Field: Total late days -->
+				<div class="form-group insights-total_late_days">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="fingerprint_2">Fingerprint 2</label>
+					<label class="control-label col-lg-3" for="total_late_days">Total late days</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint_2" id="fingerprint_2" value="<%%VALUE(fingerprint_2)%%>">
+						<input maxlength="40" type="text" class="form-control" name="total_late_days" id="total_late_days" value="<%%VALUE(total_late_days)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Fingerprint 3 -->
-				<div class="form-group employees-fingerprint_3">
+				<!-- Field: Total early outs -->
+				<div class="form-group insights-total_early_outs">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="fingerprint_3">Fingerprint 3</label>
+					<label class="control-label col-lg-3" for="total_early_outs">Total early outs</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint_3" id="fingerprint_3" value="<%%VALUE(fingerprint_3)%%>">
+						<input maxlength="40" type="text" class="form-control" name="total_early_outs" id="total_early_outs" value="<%%VALUE(total_early_outs)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Date enrolled -->
-				<div class="form-group employees-date_enrolled">
+				<!-- Field: Total hours worked -->
+				<div class="form-group insights-total_hours_worked">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="date_enrolled-mm">Date enrolled</label>
+					<label class="control-label col-lg-3" for="total_hours_worked">Total hours worked</label>
 					<div class="col-lg-9">
-						<%%COMBO(date_enrolled)%%>
+						<input maxlength="40" type="text" class="form-control" name="total_hours_worked" id="total_hours_worked" value="<%%VALUE(total_hours_worked)%%>">
+					</div>
+				</div>
+
+				<!-- Field: Best performance -->
+				<div class="form-group insights-best_performance">
+					<hr class="hidden-md hidden-lg">
+					<label class="control-label col-lg-3" for="best_performance">Best performance</label>
+					<div class="col-lg-9">
+						<input maxlength="40" type="text" class="form-control" name="best_performance" id="best_performance" value="<%%VALUE(best_performance)%%>">
 					</div>
 				</div>
 
@@ -102,7 +114,7 @@
 
 		<!-- DV action buttons -->
 		<hr class="hidden-md hidden-lg">
-		<div class="col-md-4 col-lg-2" id="employees_dv_action_buttons">
+		<div class="col-md-4 col-lg-2" id="insights_dv_action_buttons">
 			<div class="btn-toolbar">
 				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
 					<%%UPDATE_BUTTON%%>
@@ -119,16 +131,6 @@
 		</div>
 	</div>
 
-
-	<!-- child records -->
-	<hr>
-	<div class="row">
-		<div class="col-lg-10 col-lg-offset-1">
-			<div id="employees-children" class="children-tabs">
-				<div class="text-center"><i class="glyphicon glyphicon-refresh loop-rotate"></i> <%%TRANSLATION(Loading ...)%%></div>
-			</div>
-		</div>
-	</div>
 
 </div><!-- /div class="panel-body" -->
 	<script>
@@ -148,9 +150,27 @@
 			/* enable DV action buttons to float on scrolling down the form */
 			enable_dvab_floating();
 
-			$j('#employees_dv_container-loading').addClass('hidden');
-			$j('#employees_dv_container').removeClass('hidden');
-			if(!$j('.table_view').length || $j('[name=SelectedID]').val().length) AppGini.focusFormElement('employees', 'name');
+			if(!$j('.table_view').length || $j('[name=SelectedID]').val().length) {
+				AppGini.once({
+					condition: function() {
+						return $j('.form-group.insights-empID')
+									.find('.nicEdit-main, .select2-container, input[type=radio]')
+									.length > 0
+								// or read-only DV
+								|| (!$j('#update').length && !$j('#insert').length);
+					},
+					action: function() {
+						$j('#insights_dv_container-loading').addClass('hidden');
+						$j('#insights_dv_container').removeClass('hidden');
+						AppGini.focusFormElement('insights', 'empID');
+					},
+					timeout:  5000,
+					doActionOnTimeout:  true
+				});
+			} else {
+				$j('#insights_dv_container-loading').addClass('hidden');
+				$j('#insights_dv_container').removeClass('hidden');
+			}
 
 			$j('form').eq(0).change(function() {
 				if($j(this).data('already_changed')) return;
@@ -160,38 +180,6 @@
 
 			$j('a[href="<%%BASE_UPLOAD_PATH%%>"]').click(function() { return false; });
 
-			if(embedded_mode) {
-				/* hide links to children tables in embedded mode */
-				$j('.detail_view a[id$=_link]').remove();
-
-				/* append embedded mode to all links */
-				var append_embedded = function() {
-					$j('a[href]:not([href^="#"]):not([href^="javascript"]):not([href$="Embedded=1"]):not([href*="link.php?t="]):not([href^="mailto:"]):not([href$=".jpg"]):not([href$=".png"]):not([href$=".gif"])').each(
-						function() {
-							$j(this).attr('href', $j(this).attr('href') + '&Embedded=1');
-						}
-					);
-				}
-				setTimeout(append_embedded, 500);
-				setTimeout(append_embedded, 1500);
-				setTimeout(append_embedded, 2500);
-				setTimeout(append_embedded, 3500);
-			}
-
-			/* when no record is selected ('add new' mode) */
-			if(add_new_mode) {
-				/* hide links to children tables */
-				$j('.detail_view a[id$=_link]').remove();
-			} else {
-				post(
-					'parent-children.php', {
-						ParentTable: 'employees',
-						SelectedID: '<%%VALUE(EmpID)%%>',
-						Operation: 'show-children'
-					},
-					'employees-children'
-				);
-			}
 
 			if(true /* !embedded_mode */) {
 				$j('.add_new_parent').click(function() {
@@ -209,7 +197,7 @@
 							localStorage.removeItem(pt + '_last_added_id');
 							AppGini.lookupText({
 								id: new_id,
-								table: 'employees',
+								table: 'insights',
 								field: field_id,
 								callback: function(data) {
 									$j('#' + field_id + '-container').select2('data', data, true);
@@ -274,10 +262,10 @@
 			if(!add_new_mode) {
 				$j('body').append('<div id="admin-tools-appendix"></div>');
 				$j('#admin-tools-appendix').load(
-					'ajax_admin_tools.php?table=employees&id=<%%URLVALUE(EmpID)%%>',
+					'ajax_admin_tools.php?table=insights&id=<%%URLVALUE(id)%%>',
 					function(resp) {
 						if(!resp.length) return;
-						$j.ajax('ajax_admin_tools.php?action=get_admin_tools_js&table=employees&id=<%%URLVALUE(EmpID)%%>');
+						$j.ajax('ajax_admin_tools.php?action=get_admin_tools_js&table=insights&id=<%%URLVALUE(id)%%>');
 					}
 				);
 			}

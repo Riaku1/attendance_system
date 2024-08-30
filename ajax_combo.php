@@ -34,9 +34,42 @@
 	$lookups = [
 		'employees' => [
 		],
-		'emp_id' => [
+		'roll_call' => [
+			'empID' => [
+				'parent_table' => 'employees',
+				'parent_pk_field' => 'EmpID',
+				'parent_caption' => '`employees`.`EmpID`',
+				'parent_from' => '`employees` ',
+				'filterers' => [],
+				'custom_query' => '',
+				'inherit_permissions' => false,
+				'list_type' => 0,
+				'not_null' => false,
+			],
+			'name' => [
+				'parent_table' => 'employees',
+				'parent_pk_field' => 'EmpID',
+				'parent_caption' => '`employees`.`name`',
+				'parent_from' => '`employees` ',
+				'filterers' => [],
+				'custom_query' => '',
+				'inherit_permissions' => false,
+				'list_type' => 0,
+				'not_null' => false,
+			],
 		],
-		'roles' => [
+		'insights' => [
+			'empID' => [
+				'parent_table' => 'employees',
+				'parent_pk_field' => 'EmpID',
+				'parent_caption' => 'IF(CHAR_LENGTH(`employees`.`EmpID`) || CHAR_LENGTH(`employees`.`name`), CONCAT_WS(\'\', `employees`.`EmpID`, \'/\', `employees`.`name`), \'\')',
+				'parent_from' => '`employees` ',
+				'filterers' => [],
+				'custom_query' => '',
+				'inherit_permissions' => false,
+				'list_type' => 0,
+				'not_null' => false,
+			],
 		],
 	];
 

@@ -110,15 +110,15 @@
 					'group' => $tg[0],
 					'homepageShowCount' => 0
 				],
-				'emp_id' => [
+				'roll_call' => [
 					'Caption' => 'Attendance',
 					'Description' => '',
 					'tableIcon' => 'table.gif',
 					'group' => $tg[0],
 					'homepageShowCount' => 0
 				],
-				'roles' => [
-					'Caption' => 'Roles',
+				'insights' => [
+					'Caption' => 'Insights',
 					'Description' => '',
 					'tableIcon' => 'table.gif',
 					'group' => $tg[0],
@@ -141,8 +141,8 @@
 		$arrTables = [
 			/* 'table_name' => ['table caption', 'homepage description', 'icon', 'table group name'] */   
 			'employees' => ['Employees', '', 'table.gif', 'None'],
-			'emp_id' => ['Attendance', '', 'table.gif', 'None'],
-			'roles' => ['Roles', '', 'table.gif', 'None'],
+			'roll_call' => ['Attendance', '', 'table.gif', 'None'],
+			'insights' => ['Insights', '', 'table.gif', 'None'],
 		];
 		if($skip_authentication || getLoggedAdmin()) return $arrTables;
 
@@ -941,38 +941,136 @@
 			/* application schema as created in AppGini */
 			$schema = [
 				'employees' => [
-					'id' => [
+					'EmpID' => [
 						'appgini' => "INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT",
 						'info' => [
-							'caption' => 'ID',
+							'caption' => 'EmpID',
 							'description' => '',
 						],
 					],
-					'first_name' => [
+					'name' => [
 						'appgini' => "VARCHAR(40) NULL",
 						'info' => [
-							'caption' => 'First name',
+							'caption' => 'Name',
+							'description' => '',
+						],
+					],
+					'department' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Department',
+							'description' => '',
+						],
+					],
+					'position' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Position',
+							'description' => '',
+						],
+					],
+					'fingerprint1' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Fingerprint 1',
+							'description' => '',
+						],
+					],
+					'fingerprint_2' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Fingerprint 2',
+							'description' => '',
+						],
+					],
+					'fingerprint_3' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Fingerprint 3',
+							'description' => '',
+						],
+					],
+					'date_enrolled' => [
+						'appgini' => "DATE NULL",
+						'info' => [
+							'caption' => 'Date enrolled',
 							'description' => '',
 						],
 					],
 				],
-				'emp_id' => [
-					'id' => [
+				'roll_call' => [
+					'attID' => [
 						'appgini' => "INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT",
 						'info' => [
-							'caption' => 'ID',
+							'caption' => 'AttID',
 							'description' => '',
 						],
 					],
-					'field2' => [
+					'empID' => [
+						'appgini' => "INT UNSIGNED NULL",
+						'info' => [
+							'caption' => 'EmpID',
+							'description' => '',
+						],
+					],
+					'name' => [
+						'appgini' => "INT UNSIGNED NULL",
+						'info' => [
+							'caption' => 'Name',
+							'description' => '',
+						],
+					],
+					'date' => [
+						'appgini' => "DATE NULL",
+						'info' => [
+							'caption' => 'Date',
+							'description' => '',
+						],
+					],
+					'time_in' => [
+						'appgini' => "TIME NULL",
+						'info' => [
+							'caption' => 'Time in',
+							'description' => '',
+						],
+					],
+					'time_out' => [
+						'appgini' => "TIME NULL",
+						'info' => [
+							'caption' => 'Time out',
+							'description' => '',
+						],
+					],
+					'day_of_week' => [
 						'appgini' => "VARCHAR(40) NULL",
 						'info' => [
-							'caption' => 'Field 2',
+							'caption' => 'Day of week',
+							'description' => '',
+						],
+					],
+					'hours_worked' => [
+						'appgini' => "INT NULL",
+						'info' => [
+							'caption' => 'Hours worked',
+							'description' => '',
+						],
+					],
+					'is_late' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Is late',
+							'description' => '',
+						],
+					],
+					'early_out' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Early out',
 							'description' => '',
 						],
 					],
 				],
-				'roles' => [
+				'insights' => [
 					'id' => [
 						'appgini' => "INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT",
 						'info' => [
@@ -980,10 +1078,66 @@
 							'description' => '',
 						],
 					],
-					'role_name' => [
+					'empID' => [
+						'appgini' => "INT UNSIGNED NULL",
+						'info' => [
+							'caption' => 'EmpID',
+							'description' => '',
+						],
+					],
+					'month' => [
+						'appgini' => "INT NULL",
+						'info' => [
+							'caption' => 'Month',
+							'description' => '',
+						],
+					],
+					'year' => [
+						'appgini' => "YEAR NULL",
+						'info' => [
+							'caption' => 'Year',
+							'description' => '',
+						],
+					],
+					'earliest_arrival' => [
+						'appgini' => "TIME NULL",
+						'info' => [
+							'caption' => 'Earliest arrival',
+							'description' => '',
+						],
+					],
+					'latest_arrival' => [
+						'appgini' => "TIME NULL",
+						'info' => [
+							'caption' => 'Latest arrival',
+							'description' => '',
+						],
+					],
+					'total_late_days' => [
 						'appgini' => "VARCHAR(40) NULL",
 						'info' => [
-							'caption' => 'Role name',
+							'caption' => 'Total late days',
+							'description' => '',
+						],
+					],
+					'total_early_outs' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Total early outs',
+							'description' => '',
+						],
+					],
+					'total_hours_worked' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Total hours worked',
+							'description' => '',
+						],
+					],
+					'best_performance' => [
+						'appgini' => "VARCHAR(40) NULL",
+						'info' => [
+							'caption' => 'Best performance',
 							'description' => '',
 						],
 					],
@@ -2015,6 +2169,12 @@
 		 *             'parent table' => [main lookup fields in child]
 		 */
 		$parents = [
+			'roll_call' => [
+				'employees' => ['empID'],
+			],
+			'insights' => [
+				'employees' => ['empID'],
+			],
 		];
 
 		return isset($parents[$table]) ? $parents[$table] : [];
@@ -2041,8 +2201,8 @@
 		 */
 		return [
 			'employees' => [],
-			'emp_id' => [],
-			'roles' => [],
+			'roll_call' => [],
+			'insights' => [],
 		];
 	}
 	#########################################################
@@ -2174,9 +2334,12 @@
 		$lookupQuery = [
 			'employees' => [
 			],
-			'emp_id' => [
+			'roll_call' => [
+				'empID' => 'SELECT `employees`.`EmpID`, `employees`.`EmpID` FROM `employees` ORDER BY 2',
+				'name' => 'SELECT `employees`.`EmpID`, `employees`.`name` FROM `employees` ORDER BY 2',
 			],
-			'roles' => [
+			'insights' => [
+				'empID' => 'SELECT `employees`.`EmpID`, IF(CHAR_LENGTH(`employees`.`EmpID`) || CHAR_LENGTH(`employees`.`name`), CONCAT_WS(\'\', `employees`.`EmpID`, \'/\', `employees`.`name`), \'\') FROM `employees` ORDER BY 2',
 			],
 		];
 

@@ -5,4 +5,10 @@
 <!-- add the following to the employees_init() hook (in hooks/employees.php file) -->
 <!--     $options->ShowTableHeader = 0;     -->
 
-		<td id="employees-first_name-<%%VALUE(id)%%>" class="employees-first_name"><%%VALUE(first_name)%%></td>
+		<td id="employees-name-<%%VALUE(EmpID)%%>" class="employees-name"><%%VALUE(name)%%></td>
+		<td id="employees-department-<%%VALUE(EmpID)%%>" class="employees-department"><%%VALUE(department)%%></td>
+		<td id="employees-position-<%%VALUE(EmpID)%%>" class="employees-position"><%%VALUE(position)%%></td>
+		<td id="employees-fingerprint1-<%%VALUE(EmpID)%%>" class="employees-fingerprint1"><%%VALUE(fingerprint1)%%></td>
+		<td id="employees-fingerprint_2-<%%VALUE(EmpID)%%>" class="employees-fingerprint_2"><%%VALUE(fingerprint_2)%%></td>
+		<td id="employees-fingerprint_3-<%%VALUE(EmpID)%%>" class="employees-fingerprint_3"><%%VALUE(fingerprint_3)%%></td>
+		<td id="employees-date_enrolled-<%%VALUE(EmpID)%%>" class="employees-date_enrolled"><%%VALUE(date_enrolled)%%></td>

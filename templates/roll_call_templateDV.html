@@ -1,20 +1,14 @@
-<!-- To change the layout of the detail view form, we recommend using JS code in hooks/employees-dv.js rather than editing this file -->
+<!-- To change the layout of the detail view form, we recommend using JS code in hooks/roll_call-dv.js rather than editing this file -->
 
 <div id="detail-view"></div>
 <div class="panel-heading"><h3 class="panel-title"><strong><%%DETAIL_VIEW_TITLE%%></strong></h3></div>
 
-<div id="employees_dv_container-loading" class="text-center text-info text-bold vspacer-lg"><i class="glyphicon glyphicon-refresh loop-rotate"></i> <%%TRANSLATION(Loading ...)%%></div>
+<div id="roll_call_dv_container-loading" class="text-center text-info text-bold vspacer-lg"><i class="glyphicon glyphicon-refresh loop-rotate"></i> <%%TRANSLATION(Loading ...)%%></div>
 
-<div class="panel-body hidden" id="employees_dv_container">
+<div class="panel-body hidden" id="roll_call_dv_container">
 	<!-- child links -->
 	<div class="row vspacer-md">
 		<div class="col-xs-12 children-links">
-			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="roll_call_link"><img src="table.gif"> Attendance</a>
-			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_roll_call_link"><img src="table.gif"> Attendance</a>
-			<input type="hidden" id="roll_call_hclink" value="roll_call_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
-			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="insights_link"><img src="table.gif"> Insights</a>
-			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_insights_link"><img src="table.gif"> Insights</a>
-			<input type="hidden" id="insights_hclink" value="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
 			<div class="clearfix"></div>
 		</div>
 	</div>
@@ -22,78 +16,96 @@
 
 	<div class="row">
 		<!-- form inputs -->
-		<div class="col-md-8 col-lg-10" id="employees_dv_form">
+		<div class="col-md-8 col-lg-10" id="roll_call_dv_form">
 			<fieldset class="form-horizontal">
 
-				<!-- Field: EmpID -->
-				<div class="form-group employees-EmpID">
+				<!-- Field: AttID -->
+				<div class="form-group roll_call-attID">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="EmpID">EmpID</label>
+					<label class="control-label col-lg-3" for="attID">AttID</label>
 					<div class="col-lg-9">
-						<div class="form-control-static" id="EmpID"><%%VALUE(EmpID)%%></div>
+						<div class="form-control-static" id="attID"><%%VALUE(attID)%%></div>
+					</div>
+				</div>
+
+				<!-- Field: EmpID -->
+				<div class="form-group roll_call-empID">
+					<hr class="hidden-md hidden-lg">
+					<label class="control-label col-lg-3" for="empID" data-parent_link="view_parent_modal">EmpID</label>
+					<div class="col-lg-9">
+						<div class="lookup-flex"><%%COMBO(empID)%%><%%PLINK(empID)%%><%%ADDNEW(employees)%%></div>
 					</div>
 				</div>
 
 				<!-- Field: Name -->
-				<div class="form-group employees-name">
+				<div class="form-group roll_call-name">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="name">Name</label>
+					<label class="control-label col-lg-3">Name</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="name" id="name" value="<%%VALUE(name)%%>">
+						<div class="form-control-static" id="name"></div>
 					</div>
 				</div>
 
-				<!-- Field: Department -->
-				<div class="form-group employees-department">
+				<!-- Field: Date -->
+				<div class="form-group roll_call-date">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="department">Department</label>
+					<label class="control-label col-lg-3" for="date-mm">Date</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="department" id="department" value="<%%VALUE(department)%%>">
+						<%%COMBO(date)%%>
 					</div>
 				</div>
 
-				<!-- Field: Position -->
-				<div class="form-group employees-position">
+				<!-- Field: Time in -->
+				<div class="form-group roll_call-time_in">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="position">Position</label>
+					<label class="control-label col-lg-3" for="time_in">Time in</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="position" id="position" value="<%%VALUE(position)%%>">
+						<input type="text" class="form-control" name="time_in" id="time_in" value="<%%VALUE(time_in)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Fingerprint 1 -->
-				<div class="form-group employees-fingerprint1">
+				<!-- Field: Time out -->
+				<div class="form-group roll_call-time_out">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="fingerprint1">Fingerprint 1</label>
+					<label class="control-label col-lg-3" for="time_out">Time out</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint1" id="fingerprint1" value="<%%VALUE(fingerprint1)%%>">
+						<input type="text" class="form-control" name="time_out" id="time_out" value="<%%VALUE(time_out)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Fingerprint 2 -->
-				<div class="form-group employees-fingerprint_2">
+				<!-- Field: Day of week -->
+				<div class="form-group roll_call-day_of_week">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="fingerprint_2">Fingerprint 2</label>
+					<label class="control-label col-lg-3" for="day_of_week">Day of week</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint_2" id="fingerprint_2" value="<%%VALUE(fingerprint_2)%%>">
+						<input maxlength="40" type="text" class="form-control" name="day_of_week" id="day_of_week" value="<%%VALUE(day_of_week)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Fingerprint 3 -->
-				<div class="form-group employees-fingerprint_3">
+				<!-- Field: Hours worked -->
+				<div class="form-group roll_call-hours_worked">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="fingerprint_3">Fingerprint 3</label>
+					<label class="control-label col-lg-3" for="hours_worked">Hours worked</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint_3" id="fingerprint_3" value="<%%VALUE(fingerprint_3)%%>">
+						<input type="text" class="form-control" name="hours_worked" id="hours_worked" value="<%%VALUE(hours_worked)%%>">
 					</div>
 				</div>
 
-				<!-- Field: Date enrolled -->
-				<div class="form-group employees-date_enrolled">
+				<!-- Field: Is late -->
+				<div class="form-group roll_call-is_late">
 					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="date_enrolled-mm">Date enrolled</label>
+					<label class="control-label col-lg-3" for="is_late">Is late</label>
 					<div class="col-lg-9">
-						<%%COMBO(date_enrolled)%%>
+						<%%COMBO(is_late)%%>
+					</div>
+				</div>
+
+				<!-- Field: Early out -->
+				<div class="form-group roll_call-early_out">
+					<hr class="hidden-md hidden-lg">
+					<label class="control-label col-lg-3" for="early_out">Early out</label>
+					<div class="col-lg-9">
+						<input maxlength="40" type="text" class="form-control" name="early_out" id="early_out" value="<%%VALUE(early_out)%%>">
 					</div>
 				</div>
 
@@ -102,7 +114,7 @@
 
 		<!-- DV action buttons -->
 		<hr class="hidden-md hidden-lg">
-		<div class="col-md-4 col-lg-2" id="employees_dv_action_buttons">
+		<div class="col-md-4 col-lg-2" id="roll_call_dv_action_buttons">
 			<div class="btn-toolbar">
 				<div class="btn-group-vertical btn-group-lg" style="width: 100%;">
 					<%%UPDATE_BUTTON%%>
@@ -119,16 +131,6 @@
 		</div>
 	</div>
 
-
-	<!-- child records -->
-	<hr>
-	<div class="row">
-		<div class="col-lg-10 col-lg-offset-1">
-			<div id="employees-children" class="children-tabs">
-				<div class="text-center"><i class="glyphicon glyphicon-refresh loop-rotate"></i> <%%TRANSLATION(Loading ...)%%></div>
-			</div>
-		</div>
-	</div>
 
 </div><!-- /div class="panel-body" -->
 	<script>
@@ -148,9 +150,27 @@
 			/* enable DV action buttons to float on scrolling down the form */
 			enable_dvab_floating();
 
-			$j('#employees_dv_container-loading').addClass('hidden');
-			$j('#employees_dv_container').removeClass('hidden');
-			if(!$j('.table_view').length || $j('[name=SelectedID]').val().length) AppGini.focusFormElement('employees', 'name');
+			if(!$j('.table_view').length || $j('[name=SelectedID]').val().length) {
+				AppGini.once({
+					condition: function() {
+						return $j('.form-group.roll_call-empID')
+									.find('.nicEdit-main, .select2-container, input[type=radio]')
+									.length > 0
+								// or read-only DV
+								|| (!$j('#update').length && !$j('#insert').length);
+					},
+					action: function() {
+						$j('#roll_call_dv_container-loading').addClass('hidden');
+						$j('#roll_call_dv_container').removeClass('hidden');
+						AppGini.focusFormElement('roll_call', 'empID');
+					},
+					timeout:  5000,
+					doActionOnTimeout:  true
+				});
+			} else {
+				$j('#roll_call_dv_container-loading').addClass('hidden');
+				$j('#roll_call_dv_container').removeClass('hidden');
+			}
 
 			$j('form').eq(0).change(function() {
 				if($j(this).data('already_changed')) return;
@@ -160,38 +180,6 @@
 
 			$j('a[href="<%%BASE_UPLOAD_PATH%%>"]').click(function() { return false; });
 
-			if(embedded_mode) {
-				/* hide links to children tables in embedded mode */
-				$j('.detail_view a[id$=_link]').remove();
-
-				/* append embedded mode to all links */
-				var append_embedded = function() {
-					$j('a[href]:not([href^="#"]):not([href^="javascript"]):not([href$="Embedded=1"]):not([href*="link.php?t="]):not([href^="mailto:"]):not([href$=".jpg"]):not([href$=".png"]):not([href$=".gif"])').each(
-						function() {
-							$j(this).attr('href', $j(this).attr('href') + '&Embedded=1');
-						}
-					);
-				}
-				setTimeout(append_embedded, 500);
-				setTimeout(append_embedded, 1500);
-				setTimeout(append_embedded, 2500);
-				setTimeout(append_embedded, 3500);
-			}
-
-			/* when no record is selected ('add new' mode) */
-			if(add_new_mode) {
-				/* hide links to children tables */
-				$j('.detail_view a[id$=_link]').remove();
-			} else {
-				post(
-					'parent-children.php', {
-						ParentTable: 'employees',
-						SelectedID: '<%%VALUE(EmpID)%%>',
-						Operation: 'show-children'
-					},
-					'employees-children'
-				);
-			}
 
 			if(true /* !embedded_mode */) {
 				$j('.add_new_parent').click(function() {
@@ -209,7 +197,7 @@
 							localStorage.removeItem(pt + '_last_added_id');
 							AppGini.lookupText({
 								id: new_id,
-								table: 'employees',
+								table: 'roll_call',
 								field: field_id,
 								callback: function(data) {
 									$j('#' + field_id + '-container').select2('data', data, true);
@@ -274,10 +262,10 @@
 			if(!add_new_mode) {
 				$j('body').append('<div id="admin-tools-appendix"></div>');
 				$j('#admin-tools-appendix').load(
-					'ajax_admin_tools.php?table=employees&id=<%%URLVALUE(EmpID)%%>',
+					'ajax_admin_tools.php?table=roll_call&id=<%%URLVALUE(attID)%%>',
 					function(resp) {
 						if(!resp.length) return;
-						$j.ajax('ajax_admin_tools.php?action=get_admin_tools_js&table=employees&id=<%%URLVALUE(EmpID)%%>');
+						$j.ajax('ajax_admin_tools.php?action=get_admin_tools_js&table=roll_call&id=<%%URLVALUE(attID)%%>');
 					}
 				);
 			}

@@ -13,7 +13,13 @@ function employees_insert(&$error_message = '') {
 	if(!$arrPerm['insert']) return false;
 
 	$data = [
-		'first_name' => Request::val('first_name', ''),
+		'name' => Request::val('name', ''),
+		'department' => Request::val('department', ''),
+		'position' => Request::val('position', ''),
+		'fingerprint1' => Request::val('fingerprint1', ''),
+		'fingerprint_2' => Request::val('fingerprint_2', ''),
+		'fingerprint_3' => Request::val('fingerprint_3', ''),
+		'date_enrolled' => Request::dateComponents('date_enrolled', ''),
 	];
 
 
@@ -41,7 +47,7 @@ function employees_insert(&$error_message = '') {
 
 	// hook: employees_after_insert
 	if(function_exists('employees_after_insert')) {
-		$res = sql("SELECT * FROM `employees` WHERE `id`='" . makeSafe($recID, false) . "' LIMIT 1", $eo);
+		$res = sql("SELECT * FROM `employees` WHERE `EmpID`='" . makeSafe($recID, false) . "' LIMIT 1", $eo);
 		if($row = db_fetch_assoc($res)) {
 			$data = array_map('makeSafe', $row);
 		}
@@ -90,7 +96,45 @@ function employees_delete($selected_id, $AllowDeleteOfParents = false, $skipChec
 			);
 	}
 
-	sql("DELETE FROM `employees` WHERE `id`='{$selected_id}'", $eo);
+	// child table: roll_call
+	$res = sql("SELECT `EmpID` FROM `employees` WHERE `EmpID`='{$selected_id}'", $eo);
+	$EmpID = db_fetch_row($res);
+	$rires = sql("SELECT COUNT(1) FROM `roll_call` WHERE `empID`='" . makeSafe($EmpID[0]) . "'", $eo);
+	$rirow = db_fetch_row($rires);
+	if($rirow[0] && !$AllowDeleteOfParents && !$skipChecks) {
+		$RetMsg = $Translation["couldn't delete"];
+		$RetMsg = str_replace('<RelatedRecords>', $rirow[0], $RetMsg);
+		$RetMsg = str_replace('<TableName>', 'roll_call', $RetMsg);
+		return $RetMsg;
+	} elseif($rirow[0] && $AllowDeleteOfParents && !$skipChecks) {
+		$RetMsg = $Translation['confirm delete'];
+		$RetMsg = str_replace('<RelatedRecords>', $rirow[0], $RetMsg);
+		$RetMsg = str_replace('<TableName>', 'roll_call', $RetMsg);
+		$RetMsg = str_replace('<Delete>', '<input type="button" class="btn btn-danger" value="' . html_attr($Translation['yes']) . '" onClick="window.location = \'employees_view.php?SelectedID=' . urlencode($selected_id) . '&delete_x=1&confirmed=1&csrf_token=' . urlencode(csrf_token(false, true)) . '\';">', $RetMsg);
+		$RetMsg = str_replace('<Cancel>', '<input type="button" class="btn btn-success" value="' . html_attr($Translation[ 'no']) . '" onClick="window.location = \'employees_view.php?SelectedID=' . urlencode($selected_id) . '\';">', $RetMsg);
+		return $RetMsg;
+	}
+
+	// child table: insights
+	$res = sql("SELECT `EmpID` FROM `employees` WHERE `EmpID`='{$selected_id}'", $eo);
+	$EmpID = db_fetch_row($res);
+	$rires = sql("SELECT COUNT(1) FROM `insights` WHERE `empID`='" . makeSafe($EmpID[0]) . "'", $eo);
+	$rirow = db_fetch_row($rires);
+	if($rirow[0] && !$AllowDeleteOfParents && !$skipChecks) {
+		$RetMsg = $Translation["couldn't delete"];
+		$RetMsg = str_replace('<RelatedRecords>', $rirow[0], $RetMsg);
+		$RetMsg = str_replace('<TableName>', 'insights', $RetMsg);
+		return $RetMsg;
+	} elseif($rirow[0] && $AllowDeleteOfParents && !$skipChecks) {
+		$RetMsg = $Translation['confirm delete'];
+		$RetMsg = str_replace('<RelatedRecords>', $rirow[0], $RetMsg);
+		$RetMsg = str_replace('<TableName>', 'insights', $RetMsg);
+		$RetMsg = str_replace('<Delete>', '<input type="button" class="btn btn-danger" value="' . html_attr($Translation['yes']) . '" onClick="window.location = \'employees_view.php?SelectedID=' . urlencode($selected_id) . '&delete_x=1&confirmed=1&csrf_token=' . urlencode(csrf_token(false, true)) . '\';">', $RetMsg);
+		$RetMsg = str_replace('<Cancel>', '<input type="button" class="btn btn-success" value="' . html_attr($Translation[ 'no']) . '" onClick="window.location = \'employees_view.php?SelectedID=' . urlencode($selected_id) . '\';">', $RetMsg);
+		return $RetMsg;
+	}
+
+	sql("DELETE FROM `employees` WHERE `EmpID`='{$selected_id}'", $eo);
 
 	// hook: employees_after_delete
 	if(function_exists('employees_after_delete')) {
@@ -109,7 +153,13 @@ function employees_update(&$selected_id, &$error_message = '') {
 	if(!check_record_permission('employees', $selected_id, 'edit')) return false;
 
 	$data = [
-		'first_name' => Request::val('first_name', ''),
+		'name' => Request::val('name', ''),
+		'department' => Request::val('department', ''),
+		'position' => Request::val('position', ''),
+		'fingerprint1' => Request::val('fingerprint1', ''),
+		'fingerprint_2' => Request::val('fingerprint_2', ''),
+		'fingerprint_3' => Request::val('fingerprint_3', ''),
+		'date_enrolled' => Request::dateComponents('date_enrolled', ''),
 	];
 
 	// get existing values
@@ -138,7 +188,7 @@ function employees_update(&$selected_id, &$error_message = '') {
 	if(!update(
 		'employees', 
 		backtick_keys_once($set), 
-		['`id`' => $selected_id], 
+		['`EmpID`' => $selected_id], 
 		$error_message
 	)) {
 		echo $error_message;
@@ -153,10 +203,10 @@ function employees_update(&$selected_id, &$error_message = '') {
 
 	// hook: employees_after_update
 	if(function_exists('employees_after_update')) {
-		$res = sql("SELECT * FROM `employees` WHERE `id`='{$data['selectedID']}' LIMIT 1", $eo);
+		$res = sql("SELECT * FROM `employees` WHERE `EmpID`='{$data['selectedID']}' LIMIT 1", $eo);
 		if($row = db_fetch_assoc($res)) $data = array_map('makeSafe', $row);
 
-		$data['selectedID'] = $data['id'];
+		$data['selectedID'] = $data['EmpID'];
 		$args = ['old_data' => $old_data];
 		if(!employees_after_update($data, getMemberInfo(), $args)) return;
 	}
@@ -196,6 +246,14 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 
 	// unique random identifier
 	$rnd1 = ($dvprint ? rand(1000000, 9999999) : '');
+	// combobox: date_enrolled
+	$combo_date_enrolled = new DateCombo;
+	$combo_date_enrolled->DateFormat = "mdy";
+	$combo_date_enrolled->MinYear = defined('employees.date_enrolled.MinYear') ? constant('employees.date_enrolled.MinYear') : 1900;
+	$combo_date_enrolled->MaxYear = defined('employees.date_enrolled.MaxYear') ? constant('employees.date_enrolled.MaxYear') : 2100;
+	$combo_date_enrolled->DefaultDate = parseMySQLDate('', '');
+	$combo_date_enrolled->MonthNames = $Translation['month names'];
+	$combo_date_enrolled->NamePrefix = 'date_enrolled';
 
 	if($selected_id) {
 		if(!check_record_permission('employees', $selected_id, 'view'))
@@ -207,10 +265,11 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		// can delete?
 		$AllowDelete = check_record_permission('employees', $selected_id, 'delete');
 
-		$res = sql("SELECT * FROM `employees` WHERE `id`='" . makeSafe($selected_id) . "'", $eo);
+		$res = sql("SELECT * FROM `employees` WHERE `EmpID`='" . makeSafe($selected_id) . "'", $eo);
 		if(!($row = db_fetch_array($res))) {
 			return error_message($Translation['No records found'], 'employees_view.php', false);
 		}
+		$combo_date_enrolled->DefaultDate = $row['date_enrolled'];
 		$urow = $row; /* unsanitized data */
 		$row = array_map('safe_html', $row);
 	} else {
@@ -297,7 +356,14 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 	// set records to read only if user can't insert new records and can't edit current record
 	if(($selected_id && !$AllowUpdate && !$AllowInsert) || (!$selected_id && !$AllowInsert)) {
 		$jsReadOnly = '';
-		$jsReadOnly .= "\tjQuery('#first_name').replaceWith('<div class=\"form-control-static\" id=\"first_name\">' + (jQuery('#first_name').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#name').replaceWith('<div class=\"form-control-static\" id=\"name\">' + (jQuery('#name').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#department').replaceWith('<div class=\"form-control-static\" id=\"department\">' + (jQuery('#department').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#position').replaceWith('<div class=\"form-control-static\" id=\"position\">' + (jQuery('#position').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#fingerprint1').replaceWith('<div class=\"form-control-static\" id=\"fingerprint1\">' + (jQuery('#fingerprint1').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#fingerprint_2').replaceWith('<div class=\"form-control-static\" id=\"fingerprint_2\">' + (jQuery('#fingerprint_2').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#fingerprint_3').replaceWith('<div class=\"form-control-static\" id=\"fingerprint_3\">' + (jQuery('#fingerprint_3').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#date_enrolled').prop('readonly', true);\n";
+		$jsReadOnly .= "\tjQuery('#date_enrolledDay, #date_enrolledMonth, #date_enrolledYear').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('.select2-container').hide();\n";
 
 		$noUploads = true;
@@ -307,6 +373,13 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 	}
 
 	// process combos
+	$templateCode = str_replace(
+		'<%%COMBO(date_enrolled)%%>', 
+		($selected_id && !$arrPerm['edit'] && ($noSaveAsCopy || !$arrPerm['insert']) ? 
+			'<div class="form-control-static">' . $combo_date_enrolled->GetHTML(true) . '</div>' : 
+			$combo_date_enrolled->GetHTML()
+		), $templateCode);
+	$templateCode = str_replace('<%%COMBOTEXT(date_enrolled)%%>', $combo_date_enrolled->GetHTML(true), $templateCode);
 
 	/* lookup fields array: 'lookup field name' => ['parent table name', 'lookup field caption'] */
 	$lookup_fields = [];
@@ -325,22 +398,57 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 	}
 
 	// process images
-	$templateCode = str_replace('<%%UPLOADFILE(id)%%>', '', $templateCode);
-	$templateCode = str_replace('<%%UPLOADFILE(first_name)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(EmpID)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(name)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(department)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(position)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(fingerprint1)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(fingerprint_2)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(fingerprint_3)%%>', '', $templateCode);
+	$templateCode = str_replace('<%%UPLOADFILE(date_enrolled)%%>', '', $templateCode);
 
 	// process values
 	if($selected_id) {
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(id)%%>', safe_html($urow['id']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(id)%%>', html_attr($row['id']), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(id)%%>', urlencode($urow['id']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(first_name)%%>', safe_html($urow['first_name']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(first_name)%%>', html_attr($row['first_name']), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(first_name)%%>', urlencode($urow['first_name']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(EmpID)%%>', safe_html($urow['EmpID']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(EmpID)%%>', html_attr($row['EmpID']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(EmpID)%%>', urlencode($urow['EmpID']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(name)%%>', safe_html($urow['name']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(name)%%>', html_attr($row['name']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(name)%%>', urlencode($urow['name']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(department)%%>', safe_html($urow['department']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(department)%%>', html_attr($row['department']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(department)%%>', urlencode($urow['department']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(position)%%>', safe_html($urow['position']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(position)%%>', html_attr($row['position']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(position)%%>', urlencode($urow['position']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(fingerprint1)%%>', safe_html($urow['fingerprint1']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(fingerprint1)%%>', html_attr($row['fingerprint1']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(fingerprint1)%%>', urlencode($urow['fingerprint1']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(fingerprint_2)%%>', safe_html($urow['fingerprint_2']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(fingerprint_2)%%>', html_attr($row['fingerprint_2']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(fingerprint_2)%%>', urlencode($urow['fingerprint_2']), $templateCode);
+		if( $dvprint) $templateCode = str_replace('<%%VALUE(fingerprint_3)%%>', safe_html($urow['fingerprint_3']), $templateCode);
+		if(!$dvprint) $templateCode = str_replace('<%%VALUE(fingerprint_3)%%>', html_attr($row['fingerprint_3']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(fingerprint_3)%%>', urlencode($urow['fingerprint_3']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(date_enrolled)%%>', app_datetime($row['date_enrolled']), $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(date_enrolled)%%>', urlencode(app_datetime($urow['date_enrolled'])), $templateCode);
 	} else {
-		$templateCode = str_replace('<%%VALUE(id)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(id)%%>', urlencode(''), $templateCode);
-		$templateCode = str_replace('<%%VALUE(first_name)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(first_name)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(EmpID)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(EmpID)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(name)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(name)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(department)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(department)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(position)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(position)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(fingerprint1)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(fingerprint1)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(fingerprint_2)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(fingerprint_2)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(fingerprint_3)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(fingerprint_3)%%>', urlencode(''), $templateCode);
+		$templateCode = str_replace('<%%VALUE(date_enrolled)%%>', '', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(date_enrolled)%%>', urlencode(''), $templateCode);
 	}
 
 	// process translations
