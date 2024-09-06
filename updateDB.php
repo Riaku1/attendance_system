@@ -17,12 +17,15 @@
 				`name` VARCHAR(40) NULL,
 				`department` VARCHAR(40) NULL,
 				`position` VARCHAR(40) NULL,
-				`fingerprint1` VARCHAR(40) NULL,
-				`fingerprint_2` VARCHAR(40) NULL,
-				`fingerprint_3` VARCHAR(40) NULL,
+				`fingerprint1` BLOB NULL,
 				`date_enrolled` DATE NULL,
 				`active` VARCHAR(12) NULL
-			) CHARSET utf8mb4"
+			) CHARSET utf8mb4", [
+				"ALTER TABLE employees ADD `field8` VARCHAR(40)",
+				"ALTER TABLE employees ADD `field9` VARCHAR(40)",
+				"ALTER TABLE `employees` DROP `field9`",
+				"ALTER TABLE `employees` DROP `field8`",
+			]
 		);
 
 		setupTable(

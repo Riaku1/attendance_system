@@ -305,10 +305,54 @@
 	 * None.
 	*/
 
-	function employees_dv($selectedID, $memberInfo, &$html, &$args) {
+function employees_dv($selectedID, $memberInfo, &$html, &$args) {
+    // Only run if a specific employee is selected
+    if($selectedID) {
+        // Add the capture fingerprint button
+        $buttonHtml = '<div class="form-group">
+            <label class="control-label col-sm-3">Fingerprint</label>
+            <div class="col-sm-9">
+                <button type="button" id="captureFingerprintBtn" class="btn btn-primary">Capture Fingerprint</button>
+            </div>
+        </div>';
 
-	}
+        // Inject the button into the form
+        $html .= $buttonHtml;
 
+        // Add JavaScript to handle button click and call the middleware API
+        $html .= '<script>
+            $("#captureFingerprintBtn").click(function() {
+                captureFingerprint();
+            });
+
+            function captureFingerprint() {
+                $.ajax({
+                    url: "http://localhost:5000/capture-fingerprint", // Middleware API endpoint
+                    method: "GET",
+                    success: function(response) {
+                        if(response.fingerprint) {
+                            // Save the fingerprint to the employee record
+                            $.ajax({
+                                url: "hooks/save_fingerprint.php", // Backend script to save fingerprint
+                                method: "POST",
+                                data: { fingerprint: response.fingerprint, employee_id: ' . json_encode($selectedID) . ' },
+                                success: function(result) {
+                                    alert("Fingerprint saved successfully!");
+                                },
+                                error: function(error) {
+                                    alert("Error saving fingerprint.");
+                                }
+                            });
+                        }
+                    },
+                    error: function() {
+                        alert("Fingerprint capture failed.");
+                    }
+                });
+            }
+        </script>';
+    }
+}
 	/**
 	 * Called when a user requests to download table data as a CSV file (by clicking on the SAVE CSV button)
 	 * 

@@ -16,9 +16,7 @@ function employees_insert(&$error_message = '') {
 		'name' => Request::val('name', ''),
 		'department' => Request::val('department', ''),
 		'position' => Request::val('position', ''),
-		'fingerprint1' => Request::val('fingerprint1', ''),
-		'fingerprint_2' => Request::val('fingerprint_2', ''),
-		'fingerprint_3' => Request::val('fingerprint_3', ''),
+		'fingerprint1' => br2nl(Request::val('fingerprint1', '')),
 		'date_enrolled' => Request::dateComponents('date_enrolled', ''),
 		'active' => Request::val('active', ''),
 	];
@@ -157,9 +155,7 @@ function employees_update(&$selected_id, &$error_message = '') {
 		'name' => Request::val('name', ''),
 		'department' => Request::val('department', ''),
 		'position' => Request::val('position', ''),
-		'fingerprint1' => Request::val('fingerprint1', ''),
-		'fingerprint_2' => Request::val('fingerprint_2', ''),
-		'fingerprint_3' => Request::val('fingerprint_3', ''),
+		'fingerprint1' => br2nl(Request::val('fingerprint1', '')),
 		'date_enrolled' => Request::dateComponents('date_enrolled', ''),
 		'active' => Request::val('active', ''),
 	];
@@ -294,7 +290,7 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		$filterField = Request::val('FilterField');
 		$filterOperator = Request::val('FilterOperator');
 		$filterValue = Request::val('FilterValue');
-		$combo_active->SelectedText = (isset($filterField[1]) && $filterField[1] == '9' && $filterOperator[1] == '<=>' ? $filterValue[1] : '');
+		$combo_active->SelectedText = (isset($filterField[1]) && $filterField[1] == '7' && $filterOperator[1] == '<=>' ? $filterValue[1] : '');
 	}
 	$combo_active->Render();
 
@@ -380,8 +376,6 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		$jsReadOnly .= "\tjQuery('#department').replaceWith('<div class=\"form-control-static\" id=\"department\">' + (jQuery('#department').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#position').replaceWith('<div class=\"form-control-static\" id=\"position\">' + (jQuery('#position').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#fingerprint1').replaceWith('<div class=\"form-control-static\" id=\"fingerprint1\">' + (jQuery('#fingerprint1').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#fingerprint_2').replaceWith('<div class=\"form-control-static\" id=\"fingerprint_2\">' + (jQuery('#fingerprint_2').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#fingerprint_3').replaceWith('<div class=\"form-control-static\" id=\"fingerprint_3\">' + (jQuery('#fingerprint_3').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#date_enrolled').prop('readonly', true);\n";
 		$jsReadOnly .= "\tjQuery('#date_enrolledDay, #date_enrolledMonth, #date_enrolledYear').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('input[name=active]').parent().html('<div class=\"form-control-static\">' + jQuery('input[name=active]:checked').next().text() + '</div>')\n";
@@ -426,8 +420,6 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 	$templateCode = str_replace('<%%UPLOADFILE(department)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(position)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(fingerprint1)%%>', '', $templateCode);
-	$templateCode = str_replace('<%%UPLOADFILE(fingerprint_2)%%>', '', $templateCode);
-	$templateCode = str_replace('<%%UPLOADFILE(fingerprint_3)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(date_enrolled)%%>', '', $templateCode);
 	$templateCode = str_replace('<%%UPLOADFILE(active)%%>', '', $templateCode);
 
@@ -445,15 +437,12 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(position)%%>', safe_html($urow['position']), $templateCode);
 		if(!$dvprint) $templateCode = str_replace('<%%VALUE(position)%%>', html_attr($row['position']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(position)%%>', urlencode($urow['position']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(fingerprint1)%%>', safe_html($urow['fingerprint1']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(fingerprint1)%%>', html_attr($row['fingerprint1']), $templateCode);
+		if($dvprint || (!$AllowUpdate && !$AllowInsert)) {
+			$templateCode = str_replace('<%%VALUE(fingerprint1)%%>', safe_html($urow['fingerprint1']), $templateCode);
+		} else {
+			$templateCode = str_replace('<%%VALUE(fingerprint1)%%>', safe_html($urow['fingerprint1'], true), $templateCode);
+		}
 		$templateCode = str_replace('<%%URLVALUE(fingerprint1)%%>', urlencode($urow['fingerprint1']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(fingerprint_2)%%>', safe_html($urow['fingerprint_2']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(fingerprint_2)%%>', html_attr($row['fingerprint_2']), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(fingerprint_2)%%>', urlencode($urow['fingerprint_2']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(fingerprint_3)%%>', safe_html($urow['fingerprint_3']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(fingerprint_3)%%>', html_attr($row['fingerprint_3']), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(fingerprint_3)%%>', urlencode($urow['fingerprint_3']), $templateCode);
 		$templateCode = str_replace('<%%VALUE(date_enrolled)%%>', app_datetime($row['date_enrolled']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(date_enrolled)%%>', urlencode(app_datetime($urow['date_enrolled'])), $templateCode);
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(active)%%>', safe_html($urow['active']), $templateCode);
@@ -470,10 +459,6 @@ function employees_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $
 		$templateCode = str_replace('<%%URLVALUE(position)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(fingerprint1)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(fingerprint1)%%>', urlencode(''), $templateCode);
-		$templateCode = str_replace('<%%VALUE(fingerprint_2)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(fingerprint_2)%%>', urlencode(''), $templateCode);
-		$templateCode = str_replace('<%%VALUE(fingerprint_3)%%>', '', $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(fingerprint_3)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(date_enrolled)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(date_enrolled)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(active)%%>', '', $templateCode);

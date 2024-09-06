@@ -111,7 +111,7 @@
 	$x->QuickSearchText = $Translation['quick search'];
 	$x->ScriptFileName = 'insights_view.php';
 	$x->TableTitle = 'Insights';
-	$x->TableIcon = 'table.gif';
+	$x->TableIcon = 'resources/table_icons/chart_bar_edit.png';
 	$x->PrimaryKey = '`insights`.`id`';
 
 	$x->ColWidth = [150, 150, 150, 150, 150, 150, 150, 150, 150, ];

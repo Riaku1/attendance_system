@@ -111,7 +111,7 @@
 	$x->QuickSearchText = $Translation['quick search'];
 	$x->ScriptFileName = 'attendance_view.php';
 	$x->TableTitle = 'Attendance';
-	$x->TableIcon = 'table.gif';
+	$x->TableIcon = 'resources/table_icons/check_box.png';
 	$x->PrimaryKey = '`attendance`.`attID`';
 
 	$x->ColWidth = [150, 150, 150, 150, 150, 150, 150, 150, 150, ];

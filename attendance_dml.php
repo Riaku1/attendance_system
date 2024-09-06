@@ -16,12 +16,7 @@ function attendance_insert(&$error_message = '') {
 		'empID' => Request::lookup('empID', ''),
 		'name' => Request::lookup('empID'),
 		'date' => Request::dateComponents('date', '1'),
-		'time_in' => time24(Request::val('time_in', '')),
-		'time_out' => time24(Request::val('time_out', '')),
-		'day_of_week' => Request::val('day_of_week', ''),
-		'hours_worked' => Request::val('hours_worked', ''),
-		'is_late' => Request::val('is_late', ''),
-		'early_out' => Request::val('early_out', ''),
+		'time_in' => parseCode('<%%creationTime%%>', true, true),
 	];
 
 
@@ -120,12 +115,6 @@ function attendance_update(&$selected_id, &$error_message = '') {
 		'empID' => Request::lookup('empID', ''),
 		'name' => Request::lookup('empID'),
 		'date' => Request::dateComponents('date', ''),
-		'time_in' => time24(Request::val('time_in', '')),
-		'time_out' => time24(Request::val('time_out', '')),
-		'day_of_week' => Request::val('day_of_week', ''),
-		'hours_worked' => Request::val('hours_worked', ''),
-		'is_late' => Request::val('is_late', ''),
-		'early_out' => Request::val('early_out', ''),
 	];
 
 	// get existing values
@@ -446,19 +435,11 @@ function attendance_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, 
 		$jsReadOnly .= "\tjQuery('#empID_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
 		$jsReadOnly .= "\tjQuery('#date').prop('readonly', true);\n";
 		$jsReadOnly .= "\tjQuery('#dateDay, #dateMonth, #dateYear').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
-		$jsReadOnly .= "\tjQuery('#time_in').replaceWith('<div class=\"form-control-static\" id=\"time_in\">' + (jQuery('#time_in').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#time_out').replaceWith('<div class=\"form-control-static\" id=\"time_out\">' + (jQuery('#time_out').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#day_of_week').replaceWith('<div class=\"form-control-static\" id=\"day_of_week\">' + (jQuery('#day_of_week').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#hours_worked').replaceWith('<div class=\"form-control-static\" id=\"hours_worked\">' + (jQuery('#hours_worked').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#is_late').replaceWith('<div class=\"form-control-static\" id=\"is_late\">' + (jQuery('#is_late').val() || '') + '</div>'); jQuery('#is_late-multi-selection-help').hide();\n";
-		$jsReadOnly .= "\tjQuery('#early_out').replaceWith('<div class=\"form-control-static\" id=\"early_out\">' + (jQuery('#early_out').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('.select2-container').hide();\n";
 
 		$noUploads = true;
 	} elseif($AllowInsert) {
 		$jsEditable = "\tjQuery('form').eq(0).data('already_changed', true);"; // temporarily disable form change handler
-		$jsEditable .= "\tjQuery('#time_in').addClass('always_shown').timepicker({ defaultTime: false, showSeconds: true, showMeridian: true, showInputs: false, disableFocus: true, minuteStep: 5 });";
-		$jsEditable .= "\tjQuery('#time_out').addClass('always_shown').timepicker({ defaultTime: false, showSeconds: true, showMeridian: true, showInputs: false, disableFocus: true, minuteStep: 5 });";
 		$jsEditable .= "\tjQuery('form').eq(0).data('already_changed', false);"; // re-enable form change handler
 	}
 
@@ -517,17 +498,13 @@ function attendance_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, 
 		$templateCode = str_replace('<%%URLVALUE(time_in)%%>', urlencode(time12($urow['time_in'])), $templateCode);
 		$templateCode = str_replace('<%%VALUE(time_out)%%>', time12(html_attr($row['time_out'])), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(time_out)%%>', urlencode(time12($urow['time_out'])), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(day_of_week)%%>', safe_html($urow['day_of_week']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(day_of_week)%%>', html_attr($row['day_of_week']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(day_of_week)%%>', safe_html($urow['day_of_week']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(day_of_week)%%>', urlencode($urow['day_of_week']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(hours_worked)%%>', safe_html($urow['hours_worked']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(hours_worked)%%>', html_attr($row['hours_worked']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(hours_worked)%%>', safe_html($urow['hours_worked']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(hours_worked)%%>', urlencode($urow['hours_worked']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(is_late)%%>', safe_html($urow['is_late']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(is_late)%%>', html_attr($row['is_late']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(is_late)%%>', safe_html($urow['is_late']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(is_late)%%>', urlencode($urow['is_late']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(early_out)%%>', safe_html($urow['early_out']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(early_out)%%>', html_attr($row['early_out']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(early_out)%%>', safe_html($urow['early_out']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(early_out)%%>', urlencode($urow['early_out']), $templateCode);
 	} else {
 		$templateCode = str_replace('<%%VALUE(attID)%%>', '', $templateCode);
@@ -536,8 +513,8 @@ function attendance_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, 
 		$templateCode = str_replace('<%%URLVALUE(empID)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(date)%%>', '1', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(date)%%>', urlencode('1'), $templateCode);
-		$templateCode = str_replace('<%%VALUE(time_in)%%>', time12(''), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(time_in)%%>', urlencode(time12('')), $templateCode);
+		$templateCode = str_replace('<%%VALUE(time_in)%%>', '<%%creationTime%%>', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(time_in)%%>', urlencode('<%%creationTime%%>'), $templateCode);
 		$templateCode = str_replace('<%%VALUE(time_out)%%>', time12(''), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(time_out)%%>', urlencode(time12('')), $templateCode);
 		$templateCode = str_replace('<%%VALUE(day_of_week)%%>', '', $templateCode);

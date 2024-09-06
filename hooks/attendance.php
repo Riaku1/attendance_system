@@ -184,52 +184,171 @@
 		return TRUE;
 	}
 
-	
+	/**
+	 * Called before executing the update query.
+	 * 
+	 * @param $data
+	 * An associative array where the keys are field names and the values are the field data values.
+	 * Note: if a field is set as read-only or hidden in detail view, it can't be modified through $data. You should use a direct SQL statement instead.
+	 * For this table, the array items are: 
+	 *     $data['attID'], $data['empID'], $data['name'], $data['date'], $data['time_in'], $data['time_out'], $data['day_of_week'], $data['hours_worked'], $data['is_late'], $data['early_out']
+	 * Also includes the item $data['selectedID'] which stores the value of the primary key for the record to be updated.
+	 * $data array is passed by reference so that modifications to it apply to the update query.
+	 * 
+	 * @param $memberInfo
+	 * An array containing logged member's info.
+	 * @see https://bigprof.com/appgini/help/working-with-generated-web-database-application/hooks/memberInfo
+	 * 
+	 * @param $args
+	 * An empty array that is passed by reference. It's currently not used but is reserved for future uses.
+	 * 
+	 * @return
+	 * True to perform the update operation or false to cancel it.
+	*/
 
 	function attendance_before_update(&$data, $memberInfo, &$args) {
 
 		return TRUE;
 	}
 
-	
+	/**
+	 * Called after executing the update query and before executing the ownership update query.
+	 * 
+	 * @param $data
+	 * An associative array where the keys are field names and the values are the field data values.
+	 * For this table, the array items are: 
+	 *     $data['attID'], $data['empID'], $data['name'], $data['date'], $data['time_in'], $data['time_out'], $data['day_of_week'], $data['hours_worked'], $data['is_late'], $data['early_out']
+	 * Also includes the item $data['selectedID'] which stores the value of the primary key for the record.
+	 * 
+	 * @param $memberInfo
+	 * An array containing logged member's info.
+	 * @see https://bigprof.com/appgini/help/working-with-generated-web-database-application/hooks/memberInfo
+	 * 
+	 * @param $args
+	 * An empty array that is passed by reference. It's currently not used but is reserved for future uses.
+	 * 
+	 * @return
+	 * True to perform the ownership update operation or false to cancel it. 
+	*/
 
 	function attendance_after_update($data, $memberInfo, &$args) {
 
 		return TRUE;
 	}
 
-	
+	/**
+	 * Called before deleting a record (and before performing child records check).
+	 * 
+	 * @param $selectedID
+	 * The primary key value of the record to be deleted.
+	 * 
+	 * @param $skipChecks
+	 * A flag passed by reference that determines whether child records check should be performed or not.
+	 * If you set $skipChecks to TRUE, no child records check will be made. If you set it to FALSE, the check will be performed.
+	 * 
+	 * @param $memberInfo
+	 * An array containing logged member's info.
+	 * @see https://bigprof.com/appgini/help/working-with-generated-web-database-application/hooks/memberInfo
+	 * 
+	 * @param $args
+	 * An empty array that is passed by reference. It's currently not used but is reserved for future uses.
+	 * 
+	 * @return
+	 * True to perform the delete operation or false to cancel it.
+	*/
 
 	function attendance_before_delete($selectedID, &$skipChecks, $memberInfo, &$args) {
 
 		return TRUE;
 	}
 
-	
+	/**
+	 * Called after deleting a record.
+	 * 
+	 * @param $selectedID
+	 * The primary key value of the record to be deleted.
+	 * 
+	 * @param $memberInfo
+	 * An array containing logged member's info.
+	 * @see https://bigprof.com/appgini/help/working-with-generated-web-database-application/hooks/memberInfo
+	 * 
+	 * @param $args
+	 * An empty array that is passed by reference. It's currently not used but is reserved for future uses.
+	 * 
+	 * @return
+	 * None.
+	*/
+
 	function attendance_after_delete($selectedID, $memberInfo, &$args) {
 
 	}
 
-	
+	/**
+	 * Called when a user requests to view the detail view (before displaying the detail view).
+	 * 
+	 * @param $selectedID
+	 * The primary key value of the record selected. False if no record is selected (i.e. the detail view will be 
+	 * displayed to enter a new record).
+	 * 
+	 * @param $memberInfo
+	 * An array containing logged member's info.
+	 * @see https://bigprof.com/appgini/help/working-with-generated-web-database-application/hooks/memberInfo
+	 * 
+	 * @param $html
+	 * (passed by reference) the HTML code of the form ready to be displayed. This could be useful for manipulating 
+	 * the code before displaying it using regular expressions, … etc.
+	 * 
+	 * @param $args
+	 * An empty array that is passed by reference. It's currently not used but is reserved for future uses.
+	 * 
+	 * @return
+	 * None.
+	*/
 
 	function attendance_dv($selectedID, $memberInfo, &$html, &$args) {
 
 	}
 
-	
+	/**
+	 * Called when a user requests to download table data as a CSV file (by clicking on the SAVE CSV button)
+	 * 
+	 * @param $query
+	 * Contains the query that will be executed to return the data in the CSV file.
+	 * 
+	 * @param $memberInfo
+	 * An array containing logged member's info.
+	 * @see https://bigprof.com/appgini/help/working-with-generated-web-database-application/hooks/memberInfo
+	 * 
+	 * @param $args
+	 * An empty array. It's currently not used but is reserved for future uses.
+	 * 
+	 * @return
+	 * A string containing the query to use for fetching the CSV data. If FALSE or empty is returned, the default query is used.
+	*/
 
 	function attendance_csv($query, $memberInfo, &$args) {
 
 		return $query;
 	}
-
+	/**
+	 * Called when displaying the table view to retrieve custom record actions
+	 * 
+	 * @return
+	 * A 2D array describing custom record actions. The format of the array is:
+	 *   [
+	 *      [
+	 *         'title' => 'Title', // the title/label of the custom action as displayed to users
+	 *         'function' => 'js_function_name', // the name of a javascript function to be executed when user selects this action
+	 *         'class' => 'CSS class(es) to apply to the action title', // optional, refer to Bootstrap documentation for CSS classes
+	 *         'icon' => 'icon name' // optional, refer to Bootstrap glyphicons for supported names
+	 *      ], ...
+	 *   ]
+	*/
 
 	function attendance_batch_actions(&$args) {
 
 		return [];
 	}
-	
-<?php
 
 function process_fingerprint_scan($fingerprint_data) {
     // Retrieve employee from the database using fingerprint matching
@@ -263,7 +382,3 @@ function process_fingerprint_scan($fingerprint_data) {
         return "Fingerprint not recognized. Please try again.";
     }
 }
-
-// Other hook functions...
-
-?>

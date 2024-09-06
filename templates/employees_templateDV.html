@@ -9,11 +9,11 @@
 	<!-- child links -->
 	<div class="row vspacer-md">
 		<div class="col-xs-12 children-links">
-			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="attendance_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="attendance_link"><img src="table.gif"> Attendance</a>
-			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="attendance_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_attendance_link"><img src="table.gif"> Attendance</a>
+			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="attendance_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="attendance_link"><img src="resources/table_icons/check_box.png"> Attendance</a>
+			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="attendance_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_attendance_link"><img src="resources/table_icons/check_box.png"> Attendance</a>
 			<input type="hidden" id="attendance_hclink" value="attendance_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
-			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="insights_link"><img src="table.gif"> Insights</a>
-			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_insights_link"><img src="table.gif"> Insights</a>
+			<a class="hidden-xs btn btn-default btn-lg pull-right hidden hspacer-sm vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="insights_link"><img src="resources/table_icons/chart_bar_edit.png"> Insights</a>
+			<a class="visible-xs btn btn-default btn-lg btn-block hidden vspacer-sm" href="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>" id="xs_insights_link"><img src="resources/table_icons/chart_bar_edit.png"> Insights</a>
 			<input type="hidden" id="insights_hclink" value="insights_view.php?filterer_empID=<%%URLVALUE(EmpID)%%>&<%%EMBEDDED%%>">
 			<div class="clearfix"></div>
 		</div>
@@ -66,25 +66,7 @@
 					<hr class="hidden-md hidden-lg">
 					<label class="control-label col-lg-3" for="fingerprint1">Fingerprint 1</label>
 					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint1" id="fingerprint1" value="<%%VALUE(fingerprint1)%%>">
-					</div>
-				</div>
-
-				<!-- Field: Fingerprint 2 -->
-				<div class="form-group employees-fingerprint_2">
-					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="fingerprint_2">Fingerprint 2</label>
-					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint_2" id="fingerprint_2" value="<%%VALUE(fingerprint_2)%%>">
-					</div>
-				</div>
-
-				<!-- Field: Fingerprint 3 -->
-				<div class="form-group employees-fingerprint_3">
-					<hr class="hidden-md hidden-lg">
-					<label class="control-label col-lg-3" for="fingerprint_3">Fingerprint 3</label>
-					<div class="col-lg-9">
-						<input maxlength="40" type="text" class="form-control" name="fingerprint_3" id="fingerprint_3" value="<%%VALUE(fingerprint_3)%%>">
+						<textarea class="form-control" name="fingerprint1" id="fingerprint1" rows=" 5"><%%VALUE(fingerprint1)%%></textarea>
 					</div>
 				</div>
 

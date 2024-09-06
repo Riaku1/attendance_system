@@ -106,7 +106,7 @@
 
 	function get_sql_fields($table_name) {
 		$sql_fields = [
-			'employees' => "`employees`.`EmpID` as 'EmpID', `employees`.`name` as 'name', `employees`.`department` as 'department', `employees`.`position` as 'position', `employees`.`fingerprint1` as 'fingerprint1', `employees`.`fingerprint_2` as 'fingerprint_2', `employees`.`fingerprint_3` as 'fingerprint_3', if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'') as 'date_enrolled', `employees`.`active` as 'active'",
+			'employees' => "`employees`.`EmpID` as 'EmpID', `employees`.`name` as 'name', `employees`.`department` as 'department', `employees`.`position` as 'position', `employees`.`fingerprint1` as 'fingerprint1', if(`employees`.`date_enrolled`,date_format(`employees`.`date_enrolled`,'%m/%d/%Y'),'') as 'date_enrolled', `employees`.`active` as 'active'",
 			'attendance' => "`attendance`.`attID` as 'attID', IF(    CHAR_LENGTH(`employees1`.`EmpID`), CONCAT_WS('',   `employees1`.`EmpID`), '') as 'empID', IF(    CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`name`), '') as 'name', if(`attendance`.`date`,date_format(`attendance`.`date`,'%m/%d/%Y'),'') as 'date', TIME_FORMAT(`attendance`.`time_in`, '%r') as 'time_in', TIME_FORMAT(`attendance`.`time_out`, '%r') as 'time_out', `attendance`.`day_of_week` as 'day_of_week', `attendance`.`hours_worked` as 'hours_worked', `attendance`.`is_late` as 'is_late', `attendance`.`early_out` as 'early_out'",
 			'insights' => "`insights`.`id` as 'id', IF(    CHAR_LENGTH(`employees1`.`EmpID`) || CHAR_LENGTH(`employees1`.`name`), CONCAT_WS('',   `employees1`.`EmpID`, '/', `employees1`.`name`), '') as 'empID', `insights`.`month` as 'month', `insights`.`year` as 'year', TIME_FORMAT(`insights`.`earliest_arrival`, '%r') as 'earliest_arrival', TIME_FORMAT(`insights`.`latest_arrival`, '%r') as 'latest_arrival', `insights`.`total_late_days` as 'total_late_days', `insights`.`total_early_outs` as 'total_early_outs', `insights`.`total_hours_worked` as 'total_hours_worked', `insights`.`best_performance` as 'best_performance'",
 		];
@@ -184,8 +184,6 @@
 				'department' => '',
 				'position' => '',
 				'fingerprint1' => '',
-				'fingerprint_2' => '',
-				'fingerprint_3' => '',
 				'date_enrolled' => '',
 				'active' => '',
 			],

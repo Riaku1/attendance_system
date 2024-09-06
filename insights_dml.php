@@ -14,14 +14,6 @@ function insights_insert(&$error_message = '') {
 
 	$data = [
 		'empID' => Request::lookup('empID', ''),
-		'month' => Request::val('month', ''),
-		'year' => Request::val('year', ''),
-		'earliest_arrival' => time24(Request::val('earliest_arrival', '')),
-		'latest_arrival' => time24(Request::val('latest_arrival', '')),
-		'total_late_days' => Request::val('total_late_days', ''),
-		'total_early_outs' => Request::val('total_early_outs', ''),
-		'total_hours_worked' => Request::val('total_hours_worked', ''),
-		'best_performance' => Request::val('best_performance', ''),
 	];
 
 
@@ -118,14 +110,6 @@ function insights_update(&$selected_id, &$error_message = '') {
 
 	$data = [
 		'empID' => Request::lookup('empID', ''),
-		'month' => Request::val('month', ''),
-		'year' => Request::val('year', ''),
-		'earliest_arrival' => time24(Request::val('earliest_arrival', '')),
-		'latest_arrival' => time24(Request::val('latest_arrival', '')),
-		'total_late_days' => Request::val('total_late_days', ''),
-		'total_early_outs' => Request::val('total_early_outs', ''),
-		'total_hours_worked' => Request::val('total_hours_worked', ''),
-		'best_performance' => Request::val('best_performance', ''),
 	];
 
 	// get existing values
@@ -417,21 +401,11 @@ function insights_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $A
 		$jsReadOnly = '';
 		$jsReadOnly .= "\tjQuery('#empID').prop('disabled', true).css({ color: '#555', backgroundColor: '#fff' });\n";
 		$jsReadOnly .= "\tjQuery('#empID_caption').prop('disabled', true).css({ color: '#555', backgroundColor: 'white' });\n";
-		$jsReadOnly .= "\tjQuery('#month').replaceWith('<div class=\"form-control-static\" id=\"month\">' + (jQuery('#month').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#year').replaceWith('<div class=\"form-control-static\" id=\"year\">' + (jQuery('#year').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#earliest_arrival').replaceWith('<div class=\"form-control-static\" id=\"earliest_arrival\">' + (jQuery('#earliest_arrival').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#latest_arrival').replaceWith('<div class=\"form-control-static\" id=\"latest_arrival\">' + (jQuery('#latest_arrival').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#total_late_days').replaceWith('<div class=\"form-control-static\" id=\"total_late_days\">' + (jQuery('#total_late_days').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#total_early_outs').replaceWith('<div class=\"form-control-static\" id=\"total_early_outs\">' + (jQuery('#total_early_outs').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#total_hours_worked').replaceWith('<div class=\"form-control-static\" id=\"total_hours_worked\">' + (jQuery('#total_hours_worked').val() || '') + '</div>');\n";
-		$jsReadOnly .= "\tjQuery('#best_performance').replaceWith('<div class=\"form-control-static\" id=\"best_performance\">' + (jQuery('#best_performance').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('.select2-container').hide();\n";
 
 		$noUploads = true;
 	} elseif($AllowInsert) {
 		$jsEditable = "\tjQuery('form').eq(0).data('already_changed', true);"; // temporarily disable form change handler
-		$jsEditable .= "\tjQuery('#earliest_arrival').addClass('always_shown').timepicker({ defaultTime: false, showSeconds: true, showMeridian: true, showInputs: false, disableFocus: true, minuteStep: 5 });";
-		$jsEditable .= "\tjQuery('#latest_arrival').addClass('always_shown').timepicker({ defaultTime: false, showSeconds: true, showMeridian: true, showInputs: false, disableFocus: true, minuteStep: 5 });";
 		$jsEditable .= "\tjQuery('form').eq(0).data('already_changed', false);"; // re-enable form change handler
 	}
 
@@ -476,27 +450,21 @@ function insights_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $A
 		if( $dvprint) $templateCode = str_replace('<%%VALUE(empID)%%>', safe_html($urow['empID']), $templateCode);
 		if(!$dvprint) $templateCode = str_replace('<%%VALUE(empID)%%>', html_attr($row['empID']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(empID)%%>', urlencode($urow['empID']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(month)%%>', safe_html($urow['month']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(month)%%>', html_attr($row['month']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(month)%%>', safe_html($urow['month']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(month)%%>', urlencode($urow['month']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(year)%%>', safe_html($urow['year']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(year)%%>', html_attr($row['year']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(year)%%>', safe_html($urow['year']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(year)%%>', urlencode($urow['year']), $templateCode);
 		$templateCode = str_replace('<%%VALUE(earliest_arrival)%%>', time12(html_attr($row['earliest_arrival'])), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(earliest_arrival)%%>', urlencode(time12($urow['earliest_arrival'])), $templateCode);
 		$templateCode = str_replace('<%%VALUE(latest_arrival)%%>', time12(html_attr($row['latest_arrival'])), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(latest_arrival)%%>', urlencode(time12($urow['latest_arrival'])), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(total_late_days)%%>', safe_html($urow['total_late_days']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(total_late_days)%%>', html_attr($row['total_late_days']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(total_late_days)%%>', safe_html($urow['total_late_days']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(total_late_days)%%>', urlencode($urow['total_late_days']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(total_early_outs)%%>', safe_html($urow['total_early_outs']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(total_early_outs)%%>', html_attr($row['total_early_outs']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(total_early_outs)%%>', safe_html($urow['total_early_outs']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(total_early_outs)%%>', urlencode($urow['total_early_outs']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(total_hours_worked)%%>', safe_html($urow['total_hours_worked']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(total_hours_worked)%%>', html_attr($row['total_hours_worked']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(total_hours_worked)%%>', safe_html($urow['total_hours_worked']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(total_hours_worked)%%>', urlencode($urow['total_hours_worked']), $templateCode);
-		if( $dvprint) $templateCode = str_replace('<%%VALUE(best_performance)%%>', safe_html($urow['best_performance']), $templateCode);
-		if(!$dvprint) $templateCode = str_replace('<%%VALUE(best_performance)%%>', html_attr($row['best_performance']), $templateCode);
+		$templateCode = str_replace('<%%VALUE(best_performance)%%>', safe_html($urow['best_performance']), $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(best_performance)%%>', urlencode($urow['best_performance']), $templateCode);
 	} else {
 		$templateCode = str_replace('<%%VALUE(id)%%>', '', $templateCode);

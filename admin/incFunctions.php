@@ -106,21 +106,21 @@
 				'employees' => [
 					'Caption' => 'Employees',
 					'Description' => '',
-					'tableIcon' => 'table.gif',
+					'tableIcon' => 'resources/table_icons/ceo.png',
 					'group' => $tg[0],
 					'homepageShowCount' => 0
 				],
 				'attendance' => [
 					'Caption' => 'Attendance',
 					'Description' => '',
-					'tableIcon' => 'table.gif',
+					'tableIcon' => 'resources/table_icons/check_box.png',
 					'group' => $tg[0],
 					'homepageShowCount' => 0
 				],
 				'insights' => [
 					'Caption' => 'Insights',
 					'Description' => '',
-					'tableIcon' => 'table.gif',
+					'tableIcon' => 'resources/table_icons/chart_bar_edit.png',
 					'group' => $tg[0],
 					'homepageShowCount' => 0
 				],
@@ -140,9 +140,9 @@
 		$arrAccessTables = [];
 		$arrTables = [
 			/* 'table_name' => ['table caption', 'homepage description', 'icon', 'table group name'] */   
-			'employees' => ['Employees', '', 'table.gif', 'None'],
-			'attendance' => ['Attendance', '', 'table.gif', 'None'],
-			'insights' => ['Insights', '', 'table.gif', 'None'],
+			'employees' => ['Employees', '', 'resources/table_icons/ceo.png', 'None'],
+			'attendance' => ['Attendance', '', 'resources/table_icons/check_box.png', 'None'],
+			'insights' => ['Insights', '', 'resources/table_icons/chart_bar_edit.png', 'None'],
 		];
 		if($skip_authentication || getLoggedAdmin()) return $arrTables;
 
@@ -970,23 +970,9 @@
 						],
 					],
 					'fingerprint1' => [
-						'appgini' => "VARCHAR(40) NULL",
+						'appgini' => "BLOB NULL",
 						'info' => [
 							'caption' => 'Fingerprint 1',
-							'description' => '',
-						],
-					],
-					'fingerprint_2' => [
-						'appgini' => "VARCHAR(40) NULL",
-						'info' => [
-							'caption' => 'Fingerprint 2',
-							'description' => '',
-						],
-					],
-					'fingerprint_3' => [
-						'appgini' => "VARCHAR(40) NULL",
-						'info' => [
-							'caption' => 'Fingerprint 3',
 							'description' => '',
 						],
 					],
